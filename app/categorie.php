@@ -15,4 +15,23 @@ class categorie extends Model
     {
         return $this->foreign;
     }
+
+    private $files = [];
+
+    /**
+     * @return array
+     */
+
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getLabel(){
+        return $this->intitule;
+    }
 }

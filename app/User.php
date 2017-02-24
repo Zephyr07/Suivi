@@ -23,4 +23,28 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    private $foreign = [];
+    private $files = [];
+
+    /**
+     * @return array
+     */
+    public function getForeign()
+    {
+        return $this->foreign;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    public function getLabel(){
+        return $this->name;
+    }
 }
