@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class client extends Model
 {
     //
-    protected $fillable = ['idclient', 'nom', 'cateforie_idcategorie'];
+    protected $fillable = ['id', 'nom', 'categorie_id'];
     protected $dates = ['created_at', 'updated_at'];
     private $foreign = ['categorie'];
 }

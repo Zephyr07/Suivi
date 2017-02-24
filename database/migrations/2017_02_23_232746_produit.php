@@ -14,7 +14,7 @@ class Produit extends Migration
     {
         //
         Schema::create('produits', function (Blueprint $table) {
-            $table->increments('idproduit');
+            $table->increments('id');
             $table->string('libelle');
             $table->timestamps();
         });

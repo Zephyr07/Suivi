@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class vente extends Model
 {
     //
-    protected $fillable = ['idvente', 'date', 'quantite', 'client_idclient', 'produit_idproduit'];
+    protected $fillable = ['id', 'date', 'quantite', 'client_id', 'produit_id'];
     protected $dates = ['created_at', 'updated_at'];
     private $foreign = ['produit','client'];
 }

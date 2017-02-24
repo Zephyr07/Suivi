@@ -17,10 +17,10 @@ class Vente extends Migration
             $table->increments('idvente');
             $table->double('quantite');
             $table->date('date');
-            $table->integer('client_idclient')->unsigned();
-            $table->integer('produit_idproduit')->unsigned();
-            $table->foreign('client_idclient')->references('idclient')->on('clients')->onDelete('cascade');
-            $table->foreign('produit_idproduit')->references('idproduit')->on('produits')->onDelete('cascade');
+            $table->integer('client_id')->unsigned();
+            $table->integer('produit_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
             $table->timestamps();
         });
     }

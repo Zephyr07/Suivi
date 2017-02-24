@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\CategorieRequest;
 use App\categorie;
 
 class categorieController extends Controller
@@ -19,7 +19,7 @@ class categorieController extends Controller
         //
     }
 
-    public function store(EventRequest $request)
+    public function store(CategorieRequest $request)
     {
         //
         return RestHelper::store(categorie::class, $request->all());
@@ -35,7 +35,7 @@ class categorieController extends Controller
         //
     }
 
-    public function update(EventRequest $request, $id)
+    public function update(CategorieRequest $request, $id)
     {
         //
         return RestHelper::update(categorie::class, $request->all(), $id);

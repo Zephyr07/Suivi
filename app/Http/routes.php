@@ -15,10 +15,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::get('/categorie', 'categorieController@index');
+Route::get('/categorie/{categorie}', 'categorieController@show');
+Route::put('/categorie/{categorie}', 'categorieController@update');
+Route::delete('/categorie/{categorie}', 'categorieController@destroy');
+Route::post('/categorie', 'categorieController@store');
 
 
 Route::resource('client', 'clientController');
 Route::resource('produit', 'produitController');
-Route::resource('vente', 'venteController');
+//Route::resource('vente', 'venteController');
+Route::get('/vente', 'venteController@most');
 

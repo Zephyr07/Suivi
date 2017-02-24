@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class produit extends Model
 {
     //
-    protected $fillable = ['idproduit', 'libelle'];
+    protected $fillable = ['id', 'libelle'];
     protected $dates = ['created_at', 'updated_at'];
 }
