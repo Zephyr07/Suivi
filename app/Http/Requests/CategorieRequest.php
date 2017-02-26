@@ -8,8 +8,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest;
 
-class CategorieRequest
+
+class CategorieRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -49,7 +51,6 @@ class CategorieRequest
             case 'POST':
             {
                 return [
-                    'id' => 'required|integer',
                     'intitule' => 'required|max:255'
 
                 ];

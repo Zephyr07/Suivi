@@ -10,7 +10,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VenteRequest extends FormRequest
+
+class ProduitRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -39,10 +40,7 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
-                    'quantite' => 'required|max:255',
-                    'date' => 'required|date|date_format:"Y-m-d"'
+                    'intitule' => 'required|max:255'
                 ];
             }
             case 'DELETE': {
@@ -53,10 +51,7 @@ class VenteRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
-                    'quantite' => 'required|max:255',
-                    'date' => 'required|date|date_format:"Y-m-d"'
+                    'intitule' => 'required|max:255'
 
                 ];
             }
@@ -64,11 +59,7 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
-                    'quantite' => 'required|max:255',
-                    'date' => 'required|date|date_format:"Y-m-d"'
-
+                    'intitule' => 'required|max:255'
                 ];
             }
             case 'PATCH':

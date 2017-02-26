@@ -35,10 +35,10 @@ class venteController extends Controller
     public function most()
     {
         $users = DB::table('clients')->join('ventes',function($join){
-            $join->on('idclient','=','client_idclient');
+            $join->on('clients.id','=','client_id');
         });
         $te=$users->join('produits',function($join){
-            $join->on("idproduit","=","produit_idproduit");
+            $join->on("produits.id","=","produit_id");
         })
             ->orderBy("quantite",'desc')
             ->limit(3)
