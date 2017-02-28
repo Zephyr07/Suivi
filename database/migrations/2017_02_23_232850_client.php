@@ -16,7 +16,7 @@ class Client extends Migration
 
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom');
+            $table->string('nom')->unique();
             $table->integer('categorie_id')->unsigned();
             $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

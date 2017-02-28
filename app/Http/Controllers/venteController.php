@@ -32,22 +32,43 @@ class venteController extends Controller
         return RestHelper::show(vente::class, $id);
     }
 
-    public function most()
+    public function most($action,$deb,$fin)
     {
-        $users = DB::table('clients')->join('ventes',function($join){
-            $join->on('clients.id','=','client_id');
-        });
-        $te=$users->join('produits',function($join){
-            $join->on("produits.id","=","produit_id");
-        })
-            ->orderBy("quantite",'desc')
-            ->limit(3)
-            ->get();
+        echo $action;
+        echo $deb;
+        echo $fin;
+        if($action=="plus_grand_consommateur"){
+            $users = DB::table('clients')->join('ventes',function($join){
+                $join->on('clients.id','=','client_id');
+            });
+            $te=$users->join('produits',function($join){
+                $join->on("produits.id","=","produit_id");
+            })
+                ->orderBy("quantite",'desc')
+                ->whereBetween("date",[$deb,$fin])
+                ->limit(3)
+                ->get();
+
+            return Response::json($te, 200, [], JSON_NUMERIC_CHECK);
+        }
+        else if($action=="produit_plus_vendu"){
+            $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
+                ->groupBy("produit_id")
+                ->whereBetween("date",[$deb,$fin])
+                ->orderBy("quantite","desc")
+                ->limit(3);
+
+            $users = $vente->join("produits",function($join){
+                $join->on("produit_id","=","produits.id");
+            })->get();
+
+            return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+        }
 
 
-        return Response::json($te, 200, [], JSON_NUMERIC_CHECK);
 
     }
+
 
     public function edit($id)
     {

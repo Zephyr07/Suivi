@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\ProduitRequest;
 use App\produit;
 
 class produitController extends Controller
@@ -19,7 +19,7 @@ class produitController extends Controller
         //
     }
 
-    public function store(EventRequest $request)
+    public function store(ProduitRequest $request)
     {
         //
         return RestHelper::store(produit::class, $request->all());
@@ -35,7 +35,7 @@ class produitController extends Controller
         //
     }
 
-    public function update(EventRequest $request, $id)
+    public function update(ProduitRequest $request, $id)
     {
         //
         return RestHelper::update(produit::class, $request->all(), $id);

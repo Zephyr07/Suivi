@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\RestHelper;
 use App\Http\Requests;
-use App\Http\Requests\EventRequest;
+use App\Http\Requests\ClientRequest;
 use App\client;
 
 class clientController extends Controller
@@ -19,7 +19,7 @@ class clientController extends Controller
         //
     }
 
-    public function store(EventRequest $request)
+    public function store(ClientRequest $request)
     {
         //
         return RestHelper::store(client::class, $request->all());
@@ -35,7 +35,7 @@ class clientController extends Controller
         //
     }
 
-    public function update(EventRequest $request, $id)
+    public function update(ClientRequest $request, $id)
     {
         //
         return RestHelper::update(client::class, $request->all(), $id);

@@ -39,8 +39,8 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
+                    'produit_id' => 'required|integer|exists:produits,id',
+                    'client_id' => 'required|integer|exists:clients,id',
                     'quantite' => 'required|max:255',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];
@@ -53,8 +53,8 @@ class VenteRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
+                    'produit_id' => 'required|integer|exists:produits,id',
+                    'client_id' => 'required|integer|exists:clients,id',
                     'quantite' => 'required|max:255',
                     'date' => 'required|date|date_format:"Y-m-d"'
 
@@ -63,12 +63,10 @@ class VenteRequest extends FormRequest
             case 'PUT':
             {
                 return [
-                    'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produit,id',
-                    'client_id' => 'required|integer|exists:client,id',
-                    'quantite' => 'required|max:255',
-                    'date' => 'required|date|date_format:"Y-m-d"'
-
+                    'produit_id' => 'integer|exists:produits,id',
+                    'client_id' => 'integer|exists:clients,id',
+                    'quantite' => 'max:255',
+                    'date' => 'date|date_format:"Y-m-d"'
                 ];
             }
             case 'PATCH':

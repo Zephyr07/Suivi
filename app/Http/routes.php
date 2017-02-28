@@ -17,15 +17,15 @@ Route::get('/', function () {
 
 
 
-Route::get('/categorie', 'categorieController@index');
-Route::get('/categorie/{categorie}', 'categorieController@show');
-Route::put('/categorie/{categorie}', 'categorieController@update');
-Route::delete('/categorie/{categorie}', 'categorieController@destroy');
-Route::post('/categorie', 'categorieController@store');
-
-
+Route::resource('categorie', 'categorieController');
 Route::resource('client', 'clientController');
 Route::resource('produit', 'produitController');
 //Route::resource('vente', 'venteController');
-Route::get('/vente', 'venteController@most');
 
+Route::get('/vente', 'venteController@index');
+Route::post('/vente', 'venteController@store');
+Route::get('/vente/{vente}', 'venteController@show');
+Route::put('/vente/{vente}', 'venteController@update');
+Route::delete('/vente/{vente}', 'venteController@destroy');
+
+Route::get('/vente/{action}/{deb}/{fin}', 'venteController@most');

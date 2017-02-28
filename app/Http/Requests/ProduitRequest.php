@@ -40,7 +40,7 @@ class ProduitRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'intitule' => 'required|max:255'
+                    'libelle' => 'required|max:255'
                 ];
             }
             case 'DELETE': {
@@ -51,15 +51,14 @@ class ProduitRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'intitule' => 'required|max:255'
+                    'libelle' => 'required|max:255'
 
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'id' => 'required|integer',
-                    'intitule' => 'required|max:255'
+                    'libelle' => 'required|max:255'
                 ];
             }
             case 'PATCH':

@@ -11,7 +11,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 
-class CategorieRequest extends FormRequest
+class ClientRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -40,7 +40,8 @@ class CategorieRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'intitule' => 'required|max:255'
+                    'nom' => 'required|max:255',
+                    'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
             case 'DELETE': {
@@ -51,14 +52,15 @@ class CategorieRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'intitule' => 'required|max:255'
-
+                    'nom' => 'required|max:255',
+                    'categorie_id' => 'required|integer|exists:categories,id'
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'intitule' => 'required|max:255'
+                    'nom' => 'max:255',
+                    'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
             case 'PATCH':

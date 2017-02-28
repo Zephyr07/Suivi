@@ -14,7 +14,7 @@ class Vente extends Migration
     {
         //
         Schema::create('ventes', function (Blueprint $table) {
-            $table->increments('idvente');
+            $table->increments('id');
             $table->double('quantite');
             $table->date('date');
             $table->integer('client_id')->unsigned();
