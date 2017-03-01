@@ -1,4 +1,117 @@
+$clr_primary:#A18554;
+$clr_second:#c0a261;
+
 body{
   background: url("../images/PAGE.png") no-repeat;
   background-size: cover;
+  color: #fff;
+}
+
+a{
+  color: $clr_second;
+}
+
+.requis{
+  color: #f00;
+}
+
+.form-signin {
+  color: #fff;
+  max-width: 299px;
+  padding: 10px 10px 29px;
+  margin: 70px auto 20px;
+  background-color: #0202024d;
+  border: 1px solid $clr_second;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+
+  .btn{
+    width: 100%;
+  }
+
+
+}
+
+.blog-masthead {
+  background-color: $clr_second;
+  -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+  box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+}
+
+.blog-nav-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  font-weight: 500;
+  color: #000;
+
+  :hover,:focus{
+    color: #fff !important;
+    text-decoration: none !important;
+  }
+}
+
+a.blog-nav-item:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
+.blog-nav .active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  vertical-align: middle;
+  content: " ";
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid;
+  border-left: 5px solid transparent;
+}
+
+// Bouton
+
+.btn-main.btn-reverse{
+  color: $clr_second;
+  background: #000;
+  border: 1px solid $clr_second;
+  border-radius: 3px;
+}
+
+.btn-primary{
+  background: $clr_primary;
+  border-color: $clr_second;
+
+  &:hover,&:focus{
+    background: #000 !important;
+    border-color:$clr_second
+  }
+}
+
+form{
+  label{
+    margin-bottom: 0px !important;
+  }
+
+  .form-group{
+    margin-bottom: 3px;
+  }
+
+  .table{
+    margin-bottom: 5px;
+  }
+}
+
+hr{
+  margin-bottom: 10px;
+  margin-top: 20px;
+  width: 500px;
+  color: $clr_second;
+  background: $clr_second;
+  border-color: $clr_second;
 }

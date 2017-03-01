@@ -1,0 +1,120 @@
+/* line 4, ../sass/bvs.scss */
+body {
+  background: url("../images/PAGE.png") no-repeat;
+  background-size: cover;
+  color: #fff;
+}
+
+/* line 10, ../sass/bvs.scss */
+a {
+  color: #c0a261;
+}
+
+/* line 14, ../sass/bvs.scss */
+.requis {
+  color: #f00;
+}
+
+/* line 18, ../sass/bvs.scss */
+.form-signin {
+  color: #fff;
+  max-width: 299px;
+  padding: 10px 10px 29px;
+  margin: 70px auto 20px;
+  background-color: #0202024d;
+  border: 1px solid #c0a261;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+/* line 32, ../sass/bvs.scss */
+.form-signin .btn {
+  width: 100%;
+}
+
+/* line 39, ../sass/bvs.scss */
+.blog-masthead {
+  background-color: #c0a261;
+  -webkit-box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* line 45, ../sass/bvs.scss */
+.blog-nav-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  font-weight: 500;
+  color: #000;
+}
+/* line 52, ../sass/bvs.scss */
+.blog-nav-item :hover, .blog-nav-item :focus {
+  color: #fff !important;
+  text-decoration: none !important;
+}
+
+/* line 58, ../sass/bvs.scss */
+a.blog-nav-item:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 63, ../sass/bvs.scss */
+.blog-nav .active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  vertical-align: middle;
+  content: " ";
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid;
+  border-left: 5px solid transparent;
+}
+
+/* line 79, ../sass/bvs.scss */
+.btn-main.btn-reverse {
+  color: #c0a261;
+  background: #000;
+  border: 1px solid #c0a261;
+  border-radius: 3px;
+}
+
+/* line 86, ../sass/bvs.scss */
+.btn-primary {
+  background: #A18554;
+  border-color: #c0a261;
+}
+/* line 90, ../sass/bvs.scss */
+.btn-primary:hover, .btn-primary:focus {
+  background: #000 !important;
+  border-color: #c0a261;
+}
+
+/* line 97, ../sass/bvs.scss */
+form label {
+  margin-bottom: 0px !important;
+}
+/* line 101, ../sass/bvs.scss */
+form .form-group {
+  margin-bottom: 3px;
+}
+/* line 105, ../sass/bvs.scss */
+form .table {
+  margin-bottom: 5px;
+}
+
+/* line 110, ../sass/bvs.scss */
+hr {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  width: 500px;
+  color: #c0a261;
+  background: #c0a261;
+  border-color: #c0a261;
+}

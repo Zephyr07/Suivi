@@ -3,9 +3,22 @@
  */
 
 config.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
-    $urlRouterProvider.otherwise( '/home');
+    $urlRouterProvider.otherwise( '/login');
 
     $stateProvider
+        .state('login',{
+            url:"/auth",
+            title:"Authentification",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'body@login': {
+                    templateUrl: template_url+'auth/login.html',
+                    controller:'LoginCtrl'
+                }
+            }
+        })
         .state('home',{
             url:"/",
             title:"Home",
@@ -22,6 +35,27 @@ config.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$ur
                     controller:'HomeCtrl'
                 },
                 'footer@home': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
+                }
+            }
+        })
+        .state('rapports',{
+            url:"/rapports",
+            title:"Rapports",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@rapports': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@rapports': {
+                    templateUrl: template_url+'rapports/formulaire.html',
+                    controller:"RapportsCtrl"
+                },
+                'footer@rapports': {
                     templateUrl: template_url+'static/footer.html',
                     controller:"FooterCtrl"
                 }
