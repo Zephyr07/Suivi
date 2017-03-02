@@ -2,9 +2,25 @@ $clr_primary:#A18554;
 $clr_second:#c0a261;
 
 body{
-  background: url("../images/PAGE.png") no-repeat;
+  background: url("../images/fond.png") no-repeat;
   background-size: cover;
   color: #fff;
+}
+
+.footer {
+  position: fixed;
+  bottom: 100px;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: transparent;
+  z-index: 0;
+
+  img{
+    z-index: 0 !important;
+    width: 170px;
+
+  }
 }
 
 a{
@@ -32,7 +48,6 @@ a{
   .btn{
     width: 100%;
   }
-
 
 }
 
@@ -110,8 +125,16 @@ form{
 hr{
   margin-bottom: 10px;
   margin-top: 20px;
-  width: 500px;
+  width: 50%;
   color: $clr_second;
   background: $clr_second;
   border-color: $clr_second;
+}
+
+.logo{
+  img{
+    position: fixed;
+    top: -12px;
+    width: 150px;
+  }
 }

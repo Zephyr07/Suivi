@@ -17,10 +17,11 @@ class Vente extends Migration
             $table->increments('id');
             $table->double('quantite');
             $table->date('date');
-            $table->integer('client_id')->unsigned();
-            $table->integer('produit_id')->unsigned();
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
-            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
+            $table->string('personne');
+            $table->string('raison');
+            $table->string('prospect');
+            $table->string('opportunite');
+            $table->string('proposition');
             $table->timestamps();
         });
     }

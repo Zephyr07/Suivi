@@ -16,6 +16,10 @@ config.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$ur
                 'body@login': {
                     templateUrl: template_url+'auth/login.html',
                     controller:'LoginCtrl'
+                },
+                'footer@login': {
+                    templateUrl: template_url+'static/footer.html',
+                    controller:"FooterCtrl"
                 }
             }
         })
