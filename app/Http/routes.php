@@ -20,6 +20,7 @@ Route::get('/', function () {
 Route::resource('categorie', 'categorieController');
 Route::resource('client', 'clientController');
 Route::resource('produit', 'produitController');
+Route::resource('visite', 'visiteController');
 //Route::resource('vente', 'venteController');
 
 Route::get('/vente', 'venteController@index');
@@ -28,4 +29,4 @@ Route::get('/vente/{vente}', 'venteController@show');
 Route::put('/vente/{vente}', 'venteController@update');
 Route::delete('/vente/{vente}', 'venteController@destroy');
 
-Route::get('/vente/{action}/{deb}/{fin}', 'venteController@most');
+Route::get('/vente/{action}/{deb}/{fin}', 'venteController@produit_plus_vendu_demande');

@@ -10,7 +10,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VenteRequest extends FormRequest
+class VisiteRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -39,9 +39,12 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|max:255',
+                    'personne' => 'max:255',
+                    'raison' => 'max:255',
+                    'prospect' => 'max:255',
+                    'opportunite' => 'max:255',
+                    'proposition' => 'max:255',
+                    'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];
             }
@@ -53,9 +56,12 @@ class VenteRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|max:255',
+                    'personne' => 'max:255',
+                    'raison' => 'max:255',
+                    'prospect' => 'max:255',
+                    'opportunite' => 'max:255',
+                    'proposition' => 'max:255',
+                    'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
 
                 ];
@@ -63,10 +69,13 @@ class VenteRequest extends FormRequest
             case 'PUT':
             {
                 return [
-                    'produit_id' => 'integer|exists:produits,id',
-                    'visite_id' => 'integer|exists:visites,id',
-                    'quantite' => 'max:255',
-                    'date' => 'date|date_format:"Y-m-d"'
+                    'personne' => 'max:255',
+                    'raison' => 'max:255',
+                    'prospect' => 'max:255',
+                    'opportunite' => 'max:255',
+                    'proposition' => 'max:255',
+                    'client_id' => 'required|integer|exists:clients,id',
+                    'date' => 'required|date|date_format:"Y-m-d"'
                 ];
             }
             case 'PATCH':

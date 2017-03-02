@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class vente extends Model
+class visite extends Model
 {
     //
-    protected $fillable = ['id', 'date','quantite','type', 'client_id', 'produit_id', 'visite_id'];
+    protected $fillable = ['id', 'date', 'personne', 'opportunite', 'raison','prospect','proposition','client_id'];
     protected $dates = ['created_at', 'updated_at'];
-    private $foreign = ['produit', 'visite'];
+    private $foreign = ['client'];
 
     private $files = [];
 
@@ -34,11 +34,8 @@ class vente extends Model
         return $this->id;
     }
 
-    public  function produit(){
-        return $this->belongsTo(produit::class);
+    public  function client(){
+        return $this->belongsTo(client::class);
     }
 
-    public  function visite(){
-        return $this->belongsTo(visite::class);
-    }
 }

@@ -36,7 +36,7 @@
                                     <label for="vente" translate>Personne rencontrée / numéro </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="vente" ng-model="v.personne" ng-minlength="3" required
+                                    <input type="text" id="vente" ng-model="v.personne" ng-minlength="3"
                                            placeholder="{{'Nom et numéro de téléphone'|translate}}" class="form-control"/>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                     <label for="raison" translate>Raison de la visite </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="raison" ng-model="v.raison" ng-minlength="3" required
+                                    <input type="text" id="raison" ng-model="v.raison" ng-minlength="3"
                                            placeholder="{{'Raison de la visite'|translate}}" class="form-control"/>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                                     <label for="info" translate>Information sur le prospect </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="info" ng-model="v.information" ng-minlength="3" required
+                                    <input type="text" id="info" ng-model="v.prospect" ng-minlength="3"
                                            placeholder="{{'Information sur le prospect'|translate}}" class="form-control"/>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                     <label for="oppo" translate>Opportiunités </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="oppo" ng-model="v.opportunite" ng-minlength="3" required
+                                    <input type="text" id="oppo" ng-model="v.opportunite" ng-minlength="3"
                                            placeholder="{{'Opportunités'|translate}}" class="form-control"/>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     <label for="prop" translate>Propositions</label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="prop" ng-model="v.proposition" ng-minlength="3" required
+                                    <input type="text" id="prop" ng-model="v.proposition" ng-minlength="3"
                                            placeholder="{{'Propositions'|translate}}" class="form-control"/>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" min="0" ng-model="p.quantite" ng-minlength="3" required
+                                            <input type="number" min="0" ng-model="p.quantite" ng-minlength="3"
                                                    placeholder="{{'Quantite'|translate}}" class="form-control"/>
                                         </td>
                                         <td>
@@ -138,7 +138,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input type="number" min="0" ng-model="p.quantite" ng-minlength="3" required
+                                            <input type="number" min="0" ng-model="p.quantite" ng-minlength="3"
                                                    placeholder="{{'Quantite'|translate}}" class="form-control"/>
                                         </td>
                                         <td>
@@ -165,6 +165,8 @@
             </div>
 
         </div>
+
+        {{ventes}}
 
         <!--<hr/>-->
         <div class="text-center end" ng-if="id==undefined">

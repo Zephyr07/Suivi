@@ -69,6 +69,24 @@ class venteController extends Controller
 
     }
 
+    public function produit_plus_vendu_demande($type,$deb,$fin)
+    {
+        $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
+            ->groupBy("produit_id")
+            ->whereBetween("date",[$deb,$fin])
+            ->where("type","=",$type)
+            ->orderBy("quantite","desc")
+            ->limit(3);
+
+        $users = $vente->join("produits",function($join){
+            $join->on("produit_id","=","produits.id");
+        })->get();
+
+        return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+
+
+    }
+
 
     public function edit($id)
     {

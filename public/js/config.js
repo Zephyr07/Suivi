@@ -2,7 +2,16 @@
  * Created by Edward NANDA on 17/02/2017.
  */
 
-config.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
+config
+
+    .config(['RestangularProvider', function (RestangularProvider) {
+        //set the base url for api calls on our RESTful services
+        var newBaseUrl = "/";
+
+        RestangularProvider.setBaseUrl(newBaseUrl);
+    }])
+
+    .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
     $urlRouterProvider.otherwise( '/login');
 
     $stateProvider
@@ -58,10 +67,6 @@ config.config(['$stateProvider','$urlRouterProvider',function($stateProvider,$ur
                 'body@rapports': {
                     templateUrl: template_url+'rapports/formulaire.html',
                     controller:"RapportsCtrl"
-                },
-                'footer@rapports': {
-                    templateUrl: template_url+'static/footer.html',
-                    controller:"FooterCtrl"
                 }
             }
         })
