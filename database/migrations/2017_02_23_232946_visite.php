@@ -20,6 +20,7 @@ class Visite extends Migration
             $table->string('raison');
             $table->string('prospect');
             $table->string('opportunite');
+            $table->integer('somme');
             $table->string('proposition');
             $table->integer('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');

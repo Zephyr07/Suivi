@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class produit extends Model
 {
     //
-    protected $fillable = ['id', 'libelle'];
+    protected $fillable = ['id', 'libelle','prix','quantite_stock','categorie_id'];
     protected $dates = ['created_at', 'updated_at'];
 
-    private $foreign = [];
+    private $foreign = ['categorie'];
     private $files = [];
 
     /**
@@ -32,5 +32,9 @@ class produit extends Model
 
     public function getLabel(){
         return $this->libelle;
+    }
+
+    public function categorie(){
+        return $this->belongsTo(categorie::class);
     }
 }

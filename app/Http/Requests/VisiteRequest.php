@@ -44,6 +44,7 @@ class VisiteRequest extends FormRequest
                     'prospect' => 'max:255',
                     'opportunite' => 'max:255',
                     'proposition' => 'max:255',
+                    'somme'=>'integer',
                     'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];
@@ -61,6 +62,7 @@ class VisiteRequest extends FormRequest
                     'prospect' => 'max:255',
                     'opportunite' => 'max:255',
                     'proposition' => 'max:255',
+                    'somme'=>'integer',
                     'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
 
@@ -74,6 +76,7 @@ class VisiteRequest extends FormRequest
                     'prospect' => 'max:255',
                     'opportunite' => 'max:255',
                     'proposition' => 'max:255',
+                    'somme'=>'integer',
                     'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];

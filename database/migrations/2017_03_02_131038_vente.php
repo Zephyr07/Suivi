@@ -15,7 +15,7 @@ class Vente extends Migration
         //
         Schema::create('ventes', function (Blueprint $table) {
             $table->increments('id');
-            $table->double('quantite');
+            $table->integer('quantite');
             $table->date('date');
             $table->string('type');
             $table->integer('visite_id')->unsigned();

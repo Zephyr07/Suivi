@@ -70,4 +70,40 @@ config
                 }
             }
         })
+
+        .state('produits',{
+            url:"/produits",
+            title:"Produits",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@produits': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@produits': {
+                    templateUrl: template_url+'admin/formulaire_produit.html',
+                    controller:"ProduitCtrl"
+                }
+            }
+        })
+
+        .state('categories',{
+            url:"/categories",
+            title:"Categorie",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@categories': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@categories': {
+                    templateUrl: template_url+'admin/formulaire_categorie.html',
+                    controller:"CategorieCtrl"
+                }
+            }
+        })
 }]);

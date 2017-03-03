@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class categorie extends Model
 {
     //
-    protected $fillable = ['id', 'intitule'];
+    protected $fillable = ['id', 'intitule','type'];
     protected $dates = ['created_at', 'updated_at'];
     private $foreign = [];
 

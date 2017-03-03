@@ -16,6 +16,10 @@ class Produit extends Migration
         Schema::create('produits', function (Blueprint $table) {
             $table->increments('id');
             $table->string('libelle')->unique();
+            $table->integer('prix');
+            $table->integer('quantite_stock');
+            $table->integer('categorie_id')->unsigned();
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

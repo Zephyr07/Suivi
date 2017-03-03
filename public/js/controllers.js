@@ -96,7 +96,115 @@ controller
                 },function(q){
                     console.log(q);
                 });
+                $scope.ventes=[];
+                $scope.ventes[0]={produits:[],besoins:[]};
+                $scope.ventes[0].produits[0]={};
+                $scope.ventes[0].produits[0].quantite=0;
+                $scope.ventes[0].besoins[0]={quantite:0};
             });
+        };
+
+
+    }])
+
+    .controller("ProduitCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
+
+        var allProduit=Restangular.all("produit");
+
+        //var produit_cat=[];
+
+        Restangular.all("produit").getList().then(function(produit){
+
+            $scope.produits=produit;
+        });
+
+        Restangular.all("categorie").getList().then(function(cat){
+            $scope.categories=$filter("filter")(cat,{type:'Produit'});
+        });
+
+
+        $scope.editer_produit=function(p){
+            $scope.produit=p;
+        };
+
+        $scope.supprimer_produit=function(p){
+            $scope.produits.splice($scope.produits.indexOf(p), 1);
+            p.remove();
+        };
+
+        $scope.enregistrer_produit=function(){
+            if($scope.produit.id!=undefined){
+                var fd = new FormData();
+                _.each($scope.produit, function (val, key) {
+                    fd.append(key, val);
+                });
+                fd.append("_method", "PUT");
+                Restangular.one('produit',$scope.produit.id).withHttpConfig({transformRequest: angular.identity})
+                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function(data){
+                    console.log(data);
+                    $scope.produit={};
+                },function(q){
+                    console.log(q);
+                });
+            }
+            else{
+                allProduit.post($scope.produit).then(function(data){
+                    $scope.produits.push(data);
+                    $scope.produit={};
+                })
+            }
+        };
+
+
+    }])
+
+    .controller("CategorieCtrl",['$scope','Restangular',function($scope,Restangular){
+
+        var allCategorie=Restangular.all("categorie");
+
+        //var produit_cat=[];
+        $scope.types=[{"nom":"Client"},{"nom":"Produit"}];
+        Restangular.all("categorie").getList().then(function(categorie){
+            $scope.categories=categorie;
+        });
+
+        Restangular.all("categorie_produit").getList().then(function(cat){
+            $scope.categories=cat;
+        });
+
+
+        $scope.editer_categorie=function(c){
+            $scope.categorie=c;
+        };
+
+        $scope.supprimer_categorie=function(c){
+            $scope.categories.splice($scope.categories.indexOf(c), 1);
+            c.remove();
+        };
+
+        $scope.enregistrer_categorie=function(){
+            console.log($scope.categorie);
+
+            if($scope.categorie.id!=undefined){
+                var fd = new FormData();
+                _.each($scope.categorie, function (val, key) {
+                    fd.append(key, val);
+                });
+                fd.append("_method", "PUT");
+                Restangular.one('categorie',$scope.categorie.id).withHttpConfig({transformRequest: angular.identity})
+                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function(data){
+                   console.log(data);
+                    $scope.categorie={};
+                },function(q){
+                    console.log(q);
+                });
+            }
+            else{
+                allCategorie.post($scope.categorie).then(function(data){
+                    $scope.categories.push(data);
+                    $scope.categorie={};
+                })
+            }
         };
 
 

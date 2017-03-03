@@ -40,7 +40,10 @@ class ProduitRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'libelle' => 'required|max:255'
+                    'prix' => 'required|integer',
+                    'quantite_stock' => 'integer',
+                    'libelle' => 'required|max:255',
+                    'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
             case 'DELETE': {
@@ -51,14 +54,20 @@ class ProduitRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'libelle' => 'required|max:255'
+                    'prix' => 'required|integer',
+                    'quantite_stock' => 'integer',
+                    'libelle' => 'required|max:255',
+                    'categorie_id' => 'required|integer|exists:categories,id'
 
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'libelle' => 'required|max:255'
+                    'prix' => 'integer',
+                    'quantite_stock' => 'integer',
+                    'libelle' => 'max:255',
+                    'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
             case 'PATCH':

@@ -41,7 +41,7 @@ class VenteRequest extends FormRequest
                     'id' => 'required|integer',
                     'produit_id' => 'required|integer|exists:produits,id',
                     'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|max:255',
+                    'quantite' => 'required|integer',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];
             }
@@ -55,7 +55,7 @@ class VenteRequest extends FormRequest
                 return [
                     'produit_id' => 'required|integer|exists:produits,id',
                     'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|max:255',
+                    'quantite' => 'required|integer',
                     'date' => 'required|date|date_format:"Y-m-d"'
 
                 ];
@@ -65,7 +65,7 @@ class VenteRequest extends FormRequest
                 return [
                     'produit_id' => 'integer|exists:produits,id',
                     'visite_id' => 'integer|exists:visites,id',
-                    'quantite' => 'max:255',
+                    'quantite' => 'integer',
                     'date' => 'date|date_format:"Y-m-d"'
                 ];
             }

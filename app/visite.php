@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class visite extends Model
 {
     //
-    protected $fillable = ['id', 'date', 'personne', 'opportunite', 'raison','prospect','proposition','client_id'];
+    protected $fillable = ['id', 'date', 'personne', 'opportunite', 'raison','prospect','proposition','somme','client_id'];
     protected $dates = ['created_at', 'updated_at'];
     private $foreign = ['client'];
 
