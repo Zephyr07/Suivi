@@ -1,0 +1,244 @@
+<div class="container">
+    <div style="margin-bottom: 20px">
+        <div>
+            <!--Premiere partie : description de l'événement-->
+            <div class="row" style="margin-top: 25px;">
+                <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
+                    <h2 style="text-align: center"><span class="number main"></span>
+                        <ff translate>Clients</ff>
+                    </h2>
+                </div>
+                <div class="clear-fix"></div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
+                        <h4>Liste des clients</h4>
+                        <div class="form-group">
+                            <div class="row-fluid">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <th>Nom</th>
+                                        <th>Categorie</th>
+                                        <th>Ville</th>
+                                        <th>Actions</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="c in clients">
+                                        <td>
+                                            {{c.nom}}
+                                        </td>
+                                        <td>
+                                            {{c.categorie.intitule}}
+                                        </td>
+                                        <td>
+                                            {{c.ville}}
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-primary" ng-click="afficher_client(c)"><i class="fa fa-eye"></i></span>
+                                            <span class="btn btn-primary" ng-click="editer_client(c)"><i class="fa fa-edit"></i></span>
+                                            <span class="btn btn-primary" ng-click="supprimer_client(c)"><i class="fa fa-times"></i></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="col-lg-6 col-sm-6" ng-if="action=='edit'" style="margin-top: 20px">
+                        <h4>Ajoutr / Editer un client</h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label>
+                                        <ff translate>Nom</ff>
+                                        <span class="requis">*</span></label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="text" id="" ng-model="client.nom"
+                                           placeholder="{{'Nom du client'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Téléphone </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="number" ng-model="client.telephone" min="200000000"
+                                           placeholder="{{'Téléphone client'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Email </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="email" ng-model="client.email"
+                                           placeholder="{{'Email du client'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Adresse </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="text" ng-model="client.adresse"
+                                           placeholder="{{'Adresse du client'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Boîte Postale </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="number" ng-model="client.boite_postale" min="1"
+                                           placeholder="{{'B.P.'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Ville </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <input type="text" ng-model="client.ville"
+                                           placeholder="{{'Ville'|translate}}" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label translate>Catégorie
+                                        <span class="requis">*</span></label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <select ng-model="client.categorie_id" class="form-control"
+                                            ng-options="c.id as c.intitule for c in categories|orderBy:'-intitule':true"
+                                    >
+                                        <option value="" disabled>
+                                            <ff translate>Sélectionnez la catégorie</ff>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-right end">
+                                <button class="btn btn-primary" translate ng-click="enregistrer_client()">Enregistrer</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-lg-6 col-sm-6" ng-if="action=='vue'" style="margin-top: 20px">
+                        <h4>Détail d'un client</h4>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label>
+                                        <ff translate>Nom</ff></label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.nom}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Téléphone </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.telephone}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Email </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.email}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Adresse </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.adresse}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Boîte Postale </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.boite_postale}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label for="" translate>Ville </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.ville}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label translate>Catégorie
+                                        <span class="requis">*</span></label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    {{client.categorie.intitule}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-right end">
+                                <button class="btn btn-primary" translate ng-click="afficher()">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <hr/>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!--<hr/>-->
+    </div>
+</div>

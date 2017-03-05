@@ -41,6 +41,11 @@ class ClientRequest extends FormRequest
                 return [
                     'id' => 'required|integer',
                     'nom' => 'required|max:255',
+                    'email' => 'max:255',
+                    'ville' => 'max:255',
+                    'adresse' => 'max:255',
+                    'telephone' => 'integer',
+                    'boite_postale' => 'integer',
                     'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
@@ -53,6 +58,11 @@ class ClientRequest extends FormRequest
             {
                 return [
                     'nom' => 'required|max:255',
+                    'email' => 'email|unique:clients|max:255',
+                    'ville' => 'max:255',
+                    'adresse' => 'max:255',
+                    'telephone' => 'integer',
+                    'boite_postale' => 'integer',
                     'categorie_id' => 'required|integer|exists:categories,id'
                 ];
             }
@@ -60,6 +70,11 @@ class ClientRequest extends FormRequest
             {
                 return [
                     'nom' => 'max:255',
+                    'email' => 'email|unique:clients|max:255',
+                    'ville' => 'max:255',
+                    'adresse' => 'max:255',
+                    'telephone' => 'integer',
+                    'boite_postale' => 'integer',
                     'categorie_id' => 'integer|exists:categories,id'
                 ];
             }

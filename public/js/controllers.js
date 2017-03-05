@@ -209,6 +209,69 @@ controller
 
 
     }])
+    
+    .controller("ClientCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
+
+        var allClient=Restangular.all("client");
+        $scope.action="edit";
+        
+        Restangular.all("client").getList().then(function(client){
+            $scope.clients=client;
+        });
+
+        Restangular.all("categorie").getList().then(function(cat){
+            $scope.categories=$filter("filter")(cat,{type:'Client'});
+        });
+
+        $scope.afficher=function(c){
+            $scope.action="edit";
+            $scope.client={};
+        };
+
+        $scope.afficher_client=function(c){
+            $scope.action="vue";
+            $scope.client=c;
+        };
+
+        $scope.editer_client=function(c){
+            $scope.action="edit";
+            $scope.client=c;
+        };
+
+        $scope.supprimer_client=function(c){
+            $scope.clients.splice($scope.clients.indexOf(c), 1);
+            c.remove();
+        };
+
+        $scope.enregistrer_client=function(){
+            console.log($scope.client);
+
+            if($scope.client.id!=undefined){
+                var fd = new FormData();
+                _.each($scope.client, function (val, key) {
+                    fd.append(key, val);
+                });
+                fd.append("_method", "PUT");
+                Restangular.one('client',$scope.client.id).withHttpConfig({transformRequest: angular.identity})
+                    .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function(data){
+                   console.log(data);
+                    $scope.client={};
+                },function(q){
+                    console.log(q);
+                });
+            }
+            else{
+                allClient.post($scope.client).then(function(data){
+                    $scope.clients.push(data);
+                    $scope.client={};
+                },function(q){
+                    console.log(q);
+                })
+            }
+        };
+
+
+    }])
 
     .controller("LoginCtrl",['$scope',function($scope){
 

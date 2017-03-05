@@ -106,4 +106,21 @@ config
                 }
             }
         })
+        .state('clients',{
+            url:"/clients",
+            title:"Clients",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@clients': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@clients': {
+                    templateUrl: template_url+'admin/formulaire_client.html',
+                    controller:"ClientCtrl"
+                }
+            }
+        })
 }]);
