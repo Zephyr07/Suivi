@@ -12,7 +12,7 @@ config
     }])
 
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){
-    $urlRouterProvider.otherwise( '/login');
+    $urlRouterProvider.otherwise( '/auth');
 
     $stateProvider
         .state('login',{
@@ -22,13 +22,13 @@ config
                 '':{
                     templateUrl: template_url + 'index.html'
                 },
+                'header@login': {
+                    templateUrl: template_url+'static/header-login.html',
+                    controller:"HeaderCtrl"
+                },
                 'body@login': {
                     templateUrl: template_url+'auth/login.html',
                     controller:'LoginCtrl'
-                },
-                'footer@login': {
-                    templateUrl: template_url+'static/footer.html',
-                    controller:"FooterCtrl"
                 }
             }
         })

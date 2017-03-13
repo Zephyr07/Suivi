@@ -1,6 +1,11 @@
 $clr_primary:#A18554;
 $clr_second:#c0a261;
 
+@font-face {
+  font-family: 'hanford';
+  src: url("../css/fonts/HANFORD_.TTF");
+}
+
 body{
   background: url("../images/fond.png") no-repeat;
   background-size: cover;
@@ -108,9 +113,11 @@ a.blog-nav-item:hover{
   }
 }
 
+
+
 form{
   label{
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
   }
 
   .form-group{
@@ -138,3 +145,115 @@ hr{
     width: 150px;
   }
 }
+
+.slogan{
+  font-family: "hanford","Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+  font-size: 25px;
+
+  &:hover,&:focus{
+    color: black !important;
+    cursor: default;
+  }
+
+  &.blog-nav-item{
+    padding: 0;
+  }
+}
+
+.home{
+
+}
+
+
+.form-control-feedback{
+  margin-top: 6px;
+  height: 23px;
+  color: #bbb;
+  line-height: 24px;
+  font-size: 15px;
+
+  &.right {
+    border-left: 1px solid #ccc;
+    right: 13px;
+  }
+
+}
+
+span.right {
+  float: right;
+  font-size: 14px !important;
+}
+
+.control-label{
+  text-align: center;
+  margin-bottom: 0;
+  padding-top: 7px;
+}
+
+
+.panel{
+  background: black;
+  border-color: $clr_second;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  //box-shadow: 0 1px 2px $clr_second;
+
+  &.panel-primary{
+    .panel-heading{
+      background: $clr_second;
+      border-color: $clr_primary;
+    }
+  }
+
+  .panel-heading{
+    padding: 0 15px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+
+    h3{
+      margin: 0 5px;
+      font-size:14px;
+      text-transform:uppercase;
+      color:#ffffff;
+      font-weight: bold;
+      padding:5px 0px;
+      height:inherit
+    }
+  }
+
+  .panel-body{
+    //color: #000;
+    padding: 7px 5px;
+
+    .col-xs-3,.col-sm-3,.col-md-3{
+      padding-right: 5px;
+    }
+    .col-xs-9,.col-sm-9,.col-md-9{
+      padding-left: 1px;
+    }
+  }
+
+  .list-group{
+    margin-bottom: 5px;
+
+    li.list-group-item{
+      border-radius:0;
+      font-weight: bold;
+      border:none;
+      background: transparent;
+      .badge{
+        background: black;
+        color: #fff;
+      }
+      &:first-child{
+        background: $clr_primary;
+        .badge{
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+

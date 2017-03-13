@@ -41,6 +41,7 @@
 	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css"></script>
 	<!-- Style -->
 	<link rel="stylesheet" href="css/bvs.css">
+	<link rel="stylesheet" href="css/row-fluid.css">
 
 	<link rel='stylesheet' href='vendor/textAngular/dist/textAngular.css'>
 
