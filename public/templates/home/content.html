@@ -11,41 +11,33 @@ bilan journée
     <div class="row" style="margin-top: 25px;">
         <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
             <h2 style="text-align: center"><span class="number main"></span>
-                <ff translate>Bilan du {{date}}</ff>
+                <ff translate>Bilan du {{current|date:'dd.MM.yyyy'}}</ff>
             </h2>
         </div>
         <div class="clear-fix"></div>
 
     </div>
 
-    <div class="row hide">
-        <form class="form-inline">
-            <div class="form-group">
-                <label for="email">Du</label>
-                <input type="text" class="form-control" id="email">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Au</label>
-                <input type="text" class="form-control" id="pwd">
-            </div>
-            <div class="checkbox hide">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-default">Filter</button>
-        </form>
-    </div>
-
-    <div class="row" style="margin-top: 20px">
+        <div class="row" style="margin-top: 20px">
         <div class="col-lg-3" >
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3>Période</h3>
+                    <h3><i class="fa fa-filter"></i> Filtre</h3>
                 </div>
                 <div class="panel-body">
                     <form>
                         <div class="form-group">
                             <div class="row-fluid">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Du</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
+                                <div class="col-md-9 col-sm-9 col-xs-9">
+                                    <input class="form-control" type="text">
+                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row-fluid">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
                                 <div class="col-md-9 col-sm-9 col-xs-9">
                                     <input class="form-control" type="text">
                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
@@ -55,10 +47,17 @@ bilan journée
 
                         <div class="form-group">
                             <div class="row-fluid">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Au</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-3">
+                                    <span class="fa fa-user form-control-feedback right"
+                                          style="color: #fff; border: none;"
+                                          aria-hidden="true"></span>
+                                </label>
                                 <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <input class="form-control" type="text">
-                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
+                                    <select name="" ng-model="vendeur" id="" class="form-control"
+                                            ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
+                                            >
+                                        <option value="">Vendeur</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +65,7 @@ bilan journée
                         <div class="form-group">
                            <div class="row-fluid" style="padding-top: 6px;padding-bottom: 6px;">
                                <div class="col-md-9 col-sm-9 col-xs-9 pull-right text-right">
-                                   <div class="btn btn-primary">Filtrer</div>
+                                   <div class="btn btn-primary"> <i class="fa fa-refresh"></i> Actualiser</div>
                                </div>
                            </div>
                         </div>
@@ -80,20 +79,17 @@ bilan journée
                     <h3><i class="fa fa-star"></i> Les plus vendus</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            CHIVAS
-                            <span class="badge">1050</span>
-                        </li>
-                        <li class="list-group-item">
-                            MUMM
-                            <span class="badge">50</span>
-                        </li>
-                        <li class="list-group-item">
-                            VERY BY
-                            <span class="badge">50</span>
+                    <ul class="list-group prime">
+                        <li ng-repeat="v in meilleur_vente" class="list-group-item">
+                            {{v.libelle}}
+                            <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
+                    <div class=" text-center">
+                        <a class="link" href="">
+                            Voir plus
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -103,20 +99,17 @@ bilan journée
                     <h3><i class="fa fa-star"></i> Les plus demandés</h3>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            SCAPA
-                            <span class="badge">100</span>
-                        </li>
-                        <li class="list-group-item">
-                            PERRIET JOUET
-                            <span class="badge">50</span>
-                        </li>
-                        <li class="list-group-item">
-                            ORANGINA
-                            <span class="badge">50</span>
+                    <ul class="list-group prime">
+                        <li ng-repeat="v in meilleur_besoin" class="list-group-item">
+                            {{v.libelle}}
+                            <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
+                    <div class=" text-center">
+                        <a class="link" href="">
+                            Voir plus
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +118,10 @@ bilan journée
                 <div class="panel-heading">
                     <h3><i class="fa fa-user"></i> Meilleurs clients</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body text-center">
+                    Indisponible pour le moment
+                </div>
+                <div class="panel-body hide">
                     <ul class="list-group">
                         <li class="list-group-item">
                             Edward NANDA
@@ -140,6 +136,11 @@ bilan journée
                             <span class="badge">480 000 Fcfa</span>
                         </li>
                     </ul>
+                    <div class=" text-center">
+                        <a class="link" href="">
+                            Voir plus
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,23 +150,36 @@ bilan journée
         <div class="col-lg-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3><i class="fa fa-user"></i> Meilleurs clients</h3>
+                    <h3><i class="fa fa-file"></i> Rapports clientèle</h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            Edward NANDA
-                            <span class="badge">10 050 100 Fcfa</span>
-                        </li>
-                        <li class="list-group-item">
-                            François BINAM
-                            <span class="badge">500 000 Fcfa</span>
-                        </li>
-                        <li class="list-group-item">
-                            Mellena EKOBE
-                            <span class="badge">480 000 Fcfa</span>
+                        <li ng-repeat="v in visites|orderBy:'updated_at':true" class="list-group-item "
+                            style="cursor: pointer"
+                            ui-sref="detail_rapport({id:v.id})">
+                            {{v.client.nom}}
+                            <span class="badge">{{}}</span>
                         </li>
                     </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3><i class="fa fa-line-chart"></i> Evolution des Ventes</h3>
+                </div>
+                <div class="panel-body">
+
+                </div>
+            </div>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3><i class="fa fa-line-chart"></i> Evolution des Besoins</h3>
+                </div>
+                <div class="panel-body">
+
                 </div>
             </div>
         </div>

@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'id','nom','ville', 'email', 'password','profil_id'
     ];
 
     /**
@@ -24,7 +24,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    private $foreign = [];
+    protected $dates = ['created_at', 'updated_at'];
+    private $foreign = ['profil'];
     private $files = [];
 
     /**
@@ -46,5 +47,9 @@ class User extends Authenticatable
 
     public function getLabel(){
         return $this->name;
+    }
+
+    public  function profil(){
+        return $this->belongsTo(profil::class);
     }
 }

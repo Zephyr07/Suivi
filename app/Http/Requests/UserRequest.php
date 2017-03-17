@@ -10,7 +10,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VenteRequest extends FormRequest
+
+class UserRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -39,11 +40,11 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|integer',
-                    'user_id' => 'required|integer|exists:users,id',
-                    'date' => 'required|date|date_format:"Y-m-d"'
+                    'nom' => 'required|max:255',
+                    'email' => 'max:255',
+                    'ville' => 'max:255',
+                    'password' => 'max:255',
+                    'profil_id' => 'integer|exists:profils,id'
                 ];
             }
             case 'DELETE': {
@@ -54,21 +55,21 @@ class VenteRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|integer',
-                    'user_id' => 'required|integer|exists:users,id',
-                    'date' => 'required|date|date_format:"Y-m-d"'
-
+                    'nom' => 'required|max:255',
+                    'email' => 'required|email|unique:clients|max:255',
+                    'password' => 'required|min:6',
+                    'ville' => 'max:255',
+                    'profil_id' => 'required|integer|exists:profils,id'
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'produit_id' => 'integer|exists:produits,id',
-                    'visite_id' => 'integer|exists:visites,id',
-                    'quantite' => 'integer',
-                    'date' => 'date|date_format:"Y-m-d"'
+                    'nom' => 'max:255',
+                    'email' => 'email|unique:clients|max:255',
+                    'ville' => 'max:255',
+                    'password' => 'min:6',
+                    'profil_id' => 'integer|exists:profils,id'
                 ];
             }
             case 'PATCH':

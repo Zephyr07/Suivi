@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 
 
+Route::resource('user', 'userController');
+Route::resource('profil', 'profilController');
 Route::resource('categorie', 'categorieController');
 Route::resource('client', 'clientController');
 Route::resource('produit', 'produitController');

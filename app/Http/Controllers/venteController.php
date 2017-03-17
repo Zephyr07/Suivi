@@ -71,6 +71,7 @@ class venteController extends Controller
 
     public function produit_plus_vendu_demande($type,$deb,$fin)
     {
+
         $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
             ->groupBy("produit_id")
             ->whereBetween("date",[$deb,$fin])

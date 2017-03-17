@@ -5,7 +5,7 @@
             <div class="row" style="margin-top: 25px;">
                 <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
                     <h2 style="text-align: center"><span class="number main"></span>
-                        <ff translate>Clients</ff>
+                        <ff translate>Utilisateurs</ff>
                     </h2>
                 </div>
                 <div class="clear-fix"></div>
@@ -17,25 +17,28 @@
                                 <table class="table table-responsive">
                                     <thead>
                                         <th>Nom</th>
-                                        <th>Categorie</th>
+                                        <th>Email</th>
                                         <th>Ville</th>
+                                        <th>Profil</th>
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="c in clients | orderBy:'-nom':true">
+                                    <tr ng-repeat="u in utilisateurs">
                                         <td>
-                                            {{c.nom}}
+                                            {{u.nom}}
                                         </td>
                                         <td>
-                                            {{c.categorie.intitule}}
+                                            {{u.email}}
                                         </td>
                                         <td>
-                                            {{c.ville}}
+                                            {{u.ville}}
                                         </td>
                                         <td>
-                                            <span class="btn btn-primary" ng-click="afficher_client(c)"><i class="fa fa-eye"></i></span>
-                                            <span class="btn btn-primary" ng-click="editer_client(c)"><i class="fa fa-edit"></i></span>
-                                            <span class="btn btn-primary" ng-click="supprimer_client(c)"><i class="fa fa-times"></i></span>
+                                            {{u.profil.nom}}
+                                        </td>
+                                        <td>
+                                            <span class="btn btn-primary" ng-click="editer_utilisateur(u)"><i class="fa fa-edit"></i></span>
+                                            <span class="btn btn-primary" ng-click="supprimer_utilisateur(u)"><i class="fa fa-times"></i></span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -44,7 +47,7 @@
                         </div>
                     </div>
                     <form class="col-lg-6 col-sm-6" ng-if="action=='edit'" style="margin-top: 20px">
-                        <h4>Ajoutr / Editer un client</h4>
+                        <h4>Ajoutr / Editer un utilisateur</h4>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-5 col-sm-5 col-md-5">
@@ -53,31 +56,19 @@
                                         <span class="requis">*</span></label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" id="" ng-model="client.nom"
-                                           placeholder="{{'Nom du client'|translate}}" class="form-control"/>
+                                    <input type="text" id="" ng-model="utilisateur.nom"
+                                           placeholder="{{'Nom de l\'utilisateur'|translate}}" class="form-control"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-5 col-sm-5 col-md-5">
-                                    <label for="" translate>Téléphone </label>
-                                </div>
-                                <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="number" ng-model="client.telephone" min="200000000"
-                                           placeholder="{{'Téléphone client'|translate}}" class="form-control"/>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-5 col-sm-5 col-md-5">
                                     <label for="" translate>Email </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="email" ng-model="client.email"
-                                           placeholder="{{'Email du client'|translate}}" class="form-control"/>
+                                    <input type="email" ng-model="utilisateur.email"
+                                           placeholder="{{'Email utilisateur'|translate}}" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -85,23 +76,11 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-5 col-sm-5 col-md-5">
-                                    <label for="" translate>Adresse </label>
+                                    <label for="" translate>Mot de passe </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" ng-model="client.adresse"
-                                           placeholder="{{'Adresse du client'|translate}}" class="form-control"/>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-lg-5 col-sm-5 col-md-5">
-                                    <label for="" translate>Boîte Postale </label>
-                                </div>
-                                <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="number" ng-model="client.boite_postale" min="1"
-                                           placeholder="{{'B.P.'|translate}}" class="form-control"/>
+                                    <input type="password" ng-model="utilisateur.password"
+                                           placeholder="{{'8 caractères minimum'|translate}}" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -112,8 +91,11 @@
                                     <label for="" translate>Ville </label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <input type="text" ng-model="client.ville"
-                                           placeholder="{{'Ville'|translate}}" class="form-control"/>
+                                    <select class="form-control" ng-model="utilisateur.ville"
+                                            ng-options="v.value as v.name for v in villes|orderBy:'-value':true"
+                                            >
+                                        <option value="" disabled>Ville</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -121,15 +103,15 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-lg-5 col-sm-5 col-md-5">
-                                    <label translate>Catégorie
+                                    <label translate>Profil
                                         <span class="requis">*</span></label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <select ng-model="client.categorie_id" class="form-control"
-                                            ng-options="c.id as c.intitule for c in categories|orderBy:'-intitule':true"
+                                    <select ng-model="utilisateur.profil_id" class="form-control"
+                                            ng-options="p.id as p.nom for p in profils|orderBy:'-nom':true"
                                     >
                                         <option value="" disabled>
-                                            <ff translate>Sélectionner la catégorie</ff>
+                                            <ff translate>Sélectionner le profil</ff>
                                         </option>
                                     </select>
                                 </div>
@@ -137,7 +119,7 @@
                         </div>
                         <div class="form-group">
                             <div class="text-right end">
-                                <button class="btn btn-primary" translate ng-click="enregistrer_client()">Enregistrer</button>
+                                <button class="btn btn-primary" translate ng-click="enregistrer_utilisateur()">Enregistrer</button>
                             </div>
                         </div>
                     </form>

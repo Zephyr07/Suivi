@@ -1,5 +1,6 @@
 $clr_primary:#A18554;
 $clr_second:#c0a261;
+$checkbox-size: 21px;
 
 @font-face {
   font-family: 'hanford';
@@ -257,3 +258,51 @@ span.right {
   }
 }
 
+a{
+  &.link{
+    color: #fff;
+    text-decoration: underline;
+  }
+}
+
+label{
+  cursor: pointer;
+}
+
+.profil{
+
+  label.with-square-checkbox {
+    cursor: pointer;
+    span {
+      line-height: 24px;
+      &::before {
+        margin-right: 4px;
+        padding-left: 1px;
+        width: $checkbox-size;
+        height: $checkbox-size;
+        border: 2px solid grey;
+        display: inline-block;
+        line-height: 15px;
+        content: '';
+        float: left;
+      }
+    }
+    input[type="checkbox"] {
+      display: none;
+      &:checked+span::before {
+        font-family: 'Glyphicons Halflings';
+        content: '\e013';
+        color: $clr_second;
+      }
+    }
+  }
+
+  main {
+    width: 300px;
+    margin: 8px auto;
+  }
+
+  li {
+    list-style-type: none;
+  }
+}

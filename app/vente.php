@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class vente extends Model
 {
     //
-    protected $fillable = ['id', 'date','quantite','type', 'client_id', 'produit_id', 'visite_id'];
+    protected $fillable = ['id', 'date','quantite','type', 'client_id', 'produit_id', 'visite_id','user_id'];
     protected $dates = ['created_at', 'updated_at'];
-    private $foreign = ['produit', 'visite'];
+    private $foreign = ['produit', 'visite','user'];
 
     private $files = [];
 
@@ -40,5 +40,9 @@ class vente extends Model
 
     public  function visite(){
         return $this->belongsTo(visite::class);
+    }
+
+    public  function user(){
+        return $this->belongsTo(user::class);
     }
 }

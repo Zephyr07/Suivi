@@ -70,7 +70,6 @@ class ClientRequest extends FormRequest
             {
                 return [
                     'nom' => 'max:255',
-                    'email' => 'email|unique:clients|max:255',
                     'ville' => 'max:255',
                     'adresse' => 'max:255',
                     'telephone' => 'integer',

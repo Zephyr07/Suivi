@@ -63,6 +63,8 @@
 	<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 
 	<script src="js/app_js/undescrore.js"></script>
+	<script src="js/app_js/highcharts.js"></script>
+	<script src="js/app_js/exporting.js"></script>
 
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular-sanitize.min.js'></script>

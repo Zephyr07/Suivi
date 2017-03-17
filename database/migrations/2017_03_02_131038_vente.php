@@ -20,6 +20,8 @@ class Vente extends Migration
             $table->string('type');
             $table->integer('visite_id')->unsigned();
             $table->integer('produit_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('visite_id')->references('id')->on('visites')->onDelete('cascade');
             $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
             $table->timestamps();

@@ -71,6 +71,24 @@ config
             }
         })
 
+        .state('detail_rapport',{
+            url:"/detail/:id",
+            title:"Détail",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@detail_rapport': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@detail_rapport': {
+                    templateUrl: template_url+'rapports/detail.html',
+                    controller:"DetailCtrl"
+                }
+            }
+        })
+
         .state('produits',{
             url:"/produits",
             title:"Produits",
@@ -120,6 +138,41 @@ config
                 'body@clients': {
                     templateUrl: template_url+'admin/formulaire_client.html',
                     controller:"ClientCtrl"
+                }
+            }
+        })
+        .state('profils',{
+            url:"/profils",
+            title:"Profils",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@profils': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@profils': {
+                    templateUrl: template_url+'admin/formulaire_profil.html',
+                    controller:"ProfilCtrl"
+                }
+            }
+        })
+
+        .state('users',{
+            url:"/utilisateurs",
+            title:"Utilisateurs",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@users': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@users': {
+                    templateUrl: template_url+'admin/formulaire_utilisateur.html',
+                    controller:"UtilisateurCtrl"
                 }
             }
         })

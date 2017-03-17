@@ -10,7 +10,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class VenteRequest extends FormRequest
+
+class ProfilRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -39,11 +40,7 @@ class VenteRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|integer',
-                    'user_id' => 'required|integer|exists:users,id',
-                    'date' => 'required|date|date_format:"Y-m-d"'
+                    'nom' => 'required|max:255'
                 ];
             }
             case 'DELETE': {
@@ -54,21 +51,30 @@ class VenteRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'produit_id' => 'required|integer|exists:produits,id',
-                    'visite_id' => 'required|integer|exists:visites,id',
-                    'quantite' => 'required|integer',
-                    'user_id' => 'required|integer|exists:users,id',
-                    'date' => 'required|date|date_format:"Y-m-d"'
+                    'nom' => 'required|max:255',
+                    'utilisateur' => 'required|max:1',
+                    'categorie' => 'required|max:1',
+                    'client' => 'required|max:1',
+                    'produit' => 'required|max:1',
+                    'profil' => 'required|max:1',
+                    'rapport' => 'required|max:1',
+                    'bilan_national' => 'required|max:1',
+                    'bilan_ville' => 'required|max:1'
 
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'produit_id' => 'integer|exists:produits,id',
-                    'visite_id' => 'integer|exists:visites,id',
-                    'quantite' => 'integer',
-                    'date' => 'date|date_format:"Y-m-d"'
+                    'nom' => 'max:255',
+                    'utilisateur' => 'max:1',
+                    'categorie' => 'max:1',
+                    'client' => 'max:1',
+                    'produit' => 'max:1',
+                    'profil' => 'max:1',
+                    'bilan_ville' => 'max:1',
+                    'bilan_national' => 'max:1',
+                    'rapport' => 'max:1'
                 ];
             }
             case 'PATCH':
