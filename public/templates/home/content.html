@@ -154,13 +154,18 @@ bilan journée
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
-                        <li ng-repeat="v in visites|orderBy:'updated_at':true" class="list-group-item "
+                        <li ng-repeat="v in visites|orderBy:'updated_at':true|limitTo:10" class="list-group-item "
                             style="cursor: pointer"
                             ui-sref="detail_rapport({id:v.id})">
                             {{v.client.nom}}
                             <span class="badge">{{}}</span>
                         </li>
                     </ul>
+                    <div class=" text-center">
+                        <a class="link" href="">
+                            Voir plus
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -170,7 +175,9 @@ bilan journée
                     <h3><i class="fa fa-line-chart"></i> Evolution des Ventes</h3>
                 </div>
                 <div class="panel-body">
+                    <div id="area">
 
+                    </div>
                 </div>
             </div>
 

@@ -38,6 +38,9 @@ controller
         Restangular.all('vente').getList().then(function(data){
             $scope.ventes.push($filter('filter')(data,{type:'livre'},true));
             $scope.besoin.push($filter('filter')(data,{type:'besoins'},true));
+
+            // recuperer les dates
+
         });
 
         // recupération des 3 meilleurs ventes
@@ -53,8 +56,37 @@ controller
         // recupération des rapports de visites
         Restangular.all('visite').getList().then(function(data){
             $scope.visites=data;
-            console.log(data);
         });
+
+        // Apply the theme
+        Highcharts.setOptions(Highcharts.theme);
+
+        Highcharts.chart('area', {
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: 'Area chart with negative values'
+            },
+            xAxis: {
+                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'John',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: 'Jane',
+                data: [2, -2, -3, 2, 1]
+            }, {
+                name: 'Joe',
+                data: [3, 4, 4, -2, 5]
+            }]
+        });
+
+
 
     }])
 
@@ -148,11 +180,11 @@ controller
                 },function(q){
                     console.log(q);
                 });
-                //$scope.ventes=[];
-                //$scope.ventes[0]={produits:[],besoins:[]};
-                //$scope.ventes[0].produits[0]={};
-                //$scope.ventes[0].produits[0].quantite=0;
-                //$scope.ventes[0].besoins[0]={quantite:0};
+                $scope.ventes=[];
+                $scope.ventes[0]={produits:[],besoins:[]};
+                $scope.ventes[0].produits[0]={};
+                $scope.ventes[0].produits[0].quantite=0;
+                $scope.ventes[0].besoins[0]={quantite:0};
             });
         };
 

@@ -84,8 +84,17 @@ class venteController extends Controller
         })->get();
 
         return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+    }
 
+    public function somme_vente($user_id,$deb,$fin)
+    {
+        $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
+            ->whereBetween("date",[$deb,$fin])
+            ->where("user_id","=",$user_id)
+            ->where("type","=",$type)
+            ->get();
 
+        return Response::json($vente, 200, [], JSON_NUMERIC_CHECK);
     }
 
 

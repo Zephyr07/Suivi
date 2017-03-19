@@ -32,3 +32,4 @@ Route::put('/vente/{vente}', 'venteController@update');
 Route::delete('/vente/{vente}', 'venteController@destroy');
 
 Route::get('/vente/{action}/{deb}/{fin}', 'venteController@produit_plus_vendu_demande');
+Route::get('/vente/{user_id}/{deb}/{fin}', 'venteController@somme_vente');

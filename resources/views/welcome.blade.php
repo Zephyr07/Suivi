@@ -46,6 +46,7 @@
 	<link rel='stylesheet' href='vendor/textAngular/dist/textAngular.css'>
 
 	<!--<link rel="stylesheet" href="vendor/ng-admin/build/ng-admin.min.css">-->
+	<!--<link rel="stylesheet" href="vendor/highcharts.css">-->
 
 
 	</head>
@@ -63,7 +64,9 @@
 	<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 
 	<script src="js/app_js/undescrore.js"></script>
-	<script src="js/app_js/highcharts.js"></script>
+	<script src='vendor/highcharts/highcharts.js'></script>
+	<script src='vendor/highcharts/modules/exporting.js'></script>
+	<script src="js/app_js/highchart-theme.js"></script>
 	<script src="js/app_js/exporting.js"></script>
 
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
