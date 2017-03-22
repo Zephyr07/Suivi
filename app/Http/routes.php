@@ -31,5 +31,7 @@ Route::get('/vente/{vente}', 'venteController@show');
 Route::put('/vente/{vente}', 'venteController@update');
 Route::delete('/vente/{vente}', 'venteController@destroy');
 
+Route::get('/visite_best/{deb}/{fin}', 'visiteController@meilleur_client');
+Route::get('/visite/{deb}/{fin}', 'visiteController@visite');
 Route::get('/vente/{action}/{deb}/{fin}', 'venteController@produit_plus_vendu_demande');
-Route::get('/vente/{user_id}/{deb}/{fin}', 'venteController@somme_vente');
+Route::get('/vente_user/{user_id}/{deb}/{fin}/{type}', 'venteController@somme_vente');

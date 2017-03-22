@@ -18,12 +18,13 @@ controller
 
     .controller("HomeCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
         $scope.current=new Date();
-
-        console.log($scope.current);
+        var j=new Date();
 
         $scope.ventes=[];
         $scope.besoin=[];
         $scope.vendeurs=[];
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+        $scope.fin=$scope.deb;
 
         // recupération des vendeurs
         Restangular.all('user').getList().then(function(data){
@@ -43,23 +44,64 @@ controller
 
         });
 
+        $scope.filtrer=function(id,deb,fin){
+            console.log(id,deb,fin);
+            var date=[];
+            var donnees=[];
+            // Recuperation des ventes suivant la période et l'utilisateur
+            Restangular.all('vente_user/'+id+'/'+deb+'/'+fin+'/livre').getList().then(function(data){
+                console.log(data);
+                angular.forEach(data,function(v,l){
+                    date.push(v.date);
+                    donnees.push({name:v.date,data: v.quantite});
+                });
+
+                console.log(date,donnees);
+                chart('area-besoin',date,donnees);
+            });
+
+
+            // recupération des 3 meilleurs ventes
+            Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                $scope.meilleur_vente=data;
+            });
+
+            // recupération des 3 meilleurs besoins
+            Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                $scope.meilleur_besoin=data;
+            });
+
+            // recupération des 3 meilleurs clients
+            Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                $scope.meilleur_client=data;
+            });
+
+            // recupération des rapports de visites de la période
+            Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                $scope.visites=data;
+            });
+        };
+
+
         // recupération des 3 meilleurs ventes
-        Restangular.all('vente/livre/2015-01-01/2018-01-01').getList().then(function(data){
+        Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
             $scope.meilleur_vente=data;
         });
 
         // recupération des 3 meilleurs besoins
-        Restangular.all('vente/besoins/2015-01-01/2018-01-01').getList().then(function(data){
+        Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
             $scope.meilleur_besoin=data;
         });
 
-        // recupération des rapports de visites
-        Restangular.all('visite').getList().then(function(data){
-            $scope.visites=data;
+        // recupération des 3 meilleurs clients
+        Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            $scope.meilleur_client=data;
         });
 
-        // Apply the theme
-        Highcharts.setOptions(Highcharts.theme);
+        // recupération des rapports de visites de la période
+        Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            $scope.visites=data;
+        });
 
         Highcharts.chart('area', {
             chart: {
@@ -76,7 +118,7 @@ controller
             },
             series: [{
                 name: 'John',
-                data: [5, 3, 4, 7, 2]
+                data: [5, 3, 4, 7]
             }, {
                 name: 'Jane',
                 data: [2, -2, -3, 2, 1]
@@ -85,8 +127,6 @@ controller
                 data: [3, 4, 4, -2, 5]
             }]
         });
-
-
 
     }])
 
@@ -100,7 +140,7 @@ controller
         })
     }])
 
-    .controller("RapportsCtrl",['$scope','Restangular',function($scope,Restangular){
+    .controller("RapportsCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
         $scope.ventes=[];
         $scope.ventes[0]={produits:[],besoins:[]};
         $scope.ventes[0].produits[0]={};
@@ -153,8 +193,12 @@ controller
             var date=""+(new Date().getYear()+1900)+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
             angular.forEach($scope.ventes,function(v,k){
                 v.date=date;
+                var somme=0;
                 allVisite.post(v).then(function(data){
                     angular.forEach(v.produits,function(p,pk){
+                        // recuperation du prix du produit
+                        var pro=$filter("filter")($scope.produits,{id: p.produit_id})[0];
+                        somme+=(pro.prix* p.quantite);
                         p.date=date;
                         p.user_id=2;
                         p.type="livre";
@@ -167,16 +211,34 @@ controller
                     });
 
                     angular.forEach(v.besoins,function(p,pk){
-                        p.date=date;
-                        p.user_id=2;
-                        p.type="besoins";
-                        p.visite_id=data.id;
-                        allVente.post(p).then(function(pdata){
+                        if(p.produit_id!=undefined){
+                            p.date=date;
+                            p.user_id=2;
+                            p.type="besoins";
+                            p.visite_id=data.id;
+                            allVente.post(p).then(function(pdata){
 
-                        },function(pq){
-                            console.log(pq);
+                            },function(pq){
+                                console.log(pq);
+                            });
+                        }
+                    });
+
+                    data.somme=somme;
+
+                    var fd = new FormData();
+                    _.each(data, function (val, key) {
+                        fd.append(key, val);
+                    });
+                    fd.append("_method", "PUT");
+                    Restangular.one('visite',data.id).withHttpConfig({transformRequest: angular.identity})
+                        .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function(data){
+                            //console.log(data);
+
+                        },function(q){
+                            console.log(q);
                         });
-                    })
+
                 },function(q){
                     console.log(q);
                 });
@@ -509,3 +571,34 @@ controller
     .controller("LoginCtrl",['$scope',function($scope){
 
     }]);
+
+function chart(target,date,donnees){
+
+    // Apply the theme
+    Highcharts.setOptions(Highcharts.theme);
+
+    $('#area_besoin').highcharts('StockChart', {
+
+        rangeSelector : {
+            selected : 4
+        },
+
+        title : {
+            text : 'AAPL Stock Price'
+        },
+
+        series : [{
+            name : 'AAPL Stock Price',
+            data : donnees,
+            marker : {
+                enabled : true,
+                radius : 3
+            },
+            //lineWidth : 0,
+            shadow : true,
+            tooltip : {
+                valueDecimals : 2
+            }
+        }]
+    });
+}

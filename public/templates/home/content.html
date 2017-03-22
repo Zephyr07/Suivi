@@ -1,6 +1,3 @@
-meilleur client,
-
-meilleur produit,
 
 Consommation par client carraouseul
 
@@ -30,7 +27,7 @@ bilan journée
                             <div class="row-fluid">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
                                 <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" ng-model="deb" type="text">
                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -39,7 +36,7 @@ bilan journée
                             <div class="row-fluid">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
                                 <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" ng-model="fin" type="text">
                                     <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                                 </div>
                             </div>
@@ -65,7 +62,8 @@ bilan journée
                         <div class="form-group">
                            <div class="row-fluid" style="padding-top: 6px;padding-bottom: 6px;">
                                <div class="col-md-9 col-sm-9 col-xs-9 pull-right text-right">
-                                   <div class="btn btn-primary"> <i class="fa fa-refresh"></i> Actualiser</div>
+                                   <button class="btn btn-primary" ng-click="filtrer(vendeur,deb,fin)">
+                                       <i class="fa fa-refresh"></i> Actualiser</button>
                                </div>
                            </div>
                         </div>
@@ -85,7 +83,7 @@ bilan journée
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
-                    <div class=" text-center">
+                    <div class=" text-center" ng-if="meilleur_vente.length>0">
                         <a class="link" href="">
                             Voir plus
                         </a>
@@ -105,7 +103,7 @@ bilan journée
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
-                    <div class=" text-center">
+                    <div class=" text-center" ng-if="meilleur_besoin.length>0">
                         <a class="link" href="">
                             Voir plus
                         </a>
@@ -118,25 +116,14 @@ bilan journée
                 <div class="panel-heading">
                     <h3><i class="fa fa-user"></i> Meilleurs clients</h3>
                 </div>
-                <div class="panel-body text-center">
-                    Indisponible pour le moment
-                </div>
-                <div class="panel-body hide">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            Edward NANDA
-                            <span class="badge">10 050 100 Fcfa</span>
-                        </li>
-                        <li class="list-group-item">
-                            François BINAM
-                            <span class="badge">500 000 Fcfa</span>
-                        </li>
-                        <li class="list-group-item">
-                            Mellena EKOBE
-                            <span class="badge">480 000 Fcfa</span>
+                <div class="panel-body">
+                    <ul class="list-group prime">
+                        <li ng-repeat="c in meilleur_client" class="list-group-item">
+                            {{c.nom}}
+                            <span class="badge">{{c.somme}} Fcfa</span>
                         </li>
                     </ul>
-                    <div class=" text-center">
+                    <div class=" text-center" ng-if="meilleur_client.length>0">
                         <a class="link" href="">
                             Voir plus
                         </a>
@@ -150,18 +137,18 @@ bilan journée
         <div class="col-lg-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h3><i class="fa fa-file"></i> Rapports clientèle</h3>
+                    <h3><i class="fa fa-file"></i> Rapports clientèles</h3>
                 </div>
                 <div class="panel-body">
                     <ul class="list-group">
                         <li ng-repeat="v in visites|orderBy:'updated_at':true|limitTo:10" class="list-group-item "
                             style="cursor: pointer"
                             ui-sref="detail_rapport({id:v.id})">
-                            {{v.client.nom}}
+                            {{v.nom}}
                             <span class="badge">{{}}</span>
                         </li>
                     </ul>
-                    <div class=" text-center">
+                    <div class=" text-center" ng-if="visites.length>0">
                         <a class="link" href="">
                             Voir plus
                         </a>
@@ -186,7 +173,9 @@ bilan journée
                     <h3><i class="fa fa-line-chart"></i> Evolution des Besoins</h3>
                 </div>
                 <div class="panel-body">
+                    <div id="area-besoin">
 
+                    </div>
                 </div>
             </div>
         </div>

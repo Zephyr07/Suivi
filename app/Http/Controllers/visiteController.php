@@ -6,6 +6,8 @@ use App\visite;
 use App\Helpers\RestHelper;
 use App\Http\Requests;
 use App\Http\Requests\VisiteRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class visiteController extends Controller
 {
@@ -44,5 +46,33 @@ class visiteController extends Controller
     {
         //
         return RestHelper::delete(visite::class, $id);
+    }
+
+    public function meilleur_client($deb,$fin)
+    {
+
+        $visite=DB::table("visites")->select("*",DB::raw("SUM(somme) as somme"))
+            ->groupBy("client_id")
+            ->whereBetween("date",[$deb,$fin])
+            ->orderBy("somme","desc")
+            ->limit(3)
+            ->join("clients",function($join){
+                $join->on("client_id","=","clients.id");
+            })
+            ->get();
+
+        return Response::json($visite, 200, [], JSON_NUMERIC_CHECK);
+    }
+
+    public function visite($deb,$fin)
+    {
+        $visite=DB::table("visites")
+            ->whereBetween("date",[$deb,$fin])
+            ->join("clients",function($join){
+                $join->on("client_id","=","clients.id");
+            })
+            ->get();
+
+        return Response::json($visite, 200, [], JSON_NUMERIC_CHECK);
     }
 }
