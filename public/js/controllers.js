@@ -6,10 +6,13 @@ controller
     .controller("AppCtrl",['$scope',function($scope){
         $scope.current=new Date();
     }])
-    .controller("HeaderCtrl",['$scope',function($scope){
-        $scope.current=new Date();
-        var current=new Date();
-        console.log(current.toLocaleDateString())
+    .controller("HeaderCtrl",['$scope','$cookies',function($scope,$cookies){
+        $scope.user=$cookies.getObject("user");
+        var p=$scope.user.profil;
+        console.log($scope.user);
+        if(p.produit==1 && p.client==1 && p.categorie==1 && p.profil==1 && p.utilisateur==1){
+            $scope.user.admin=true;
+        }
     }])
     
     .controller("FooterCtrl",['$scope',function($scope){
@@ -23,15 +26,34 @@ controller
         $scope.ventes=[];
         $scope.besoin=[];
         $scope.vendeurs=[];
+        $scope.categories=[];
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
+        $scope.famille="Castel";
         $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin=$scope.deb;
 
         // recupération des vendeurs
         Restangular.all('user').getList().then(function(data){
             angular.forEach(data,function(u,k){
-                if(u.profil.nom=="Vendeur"||u.profil.nom=="vendeur"||u.profil.nom=="VENDEUR"){
+                if(u.profil.rapport==1 && u.profil.utilisateur==0){
                     $scope.vendeurs.push(u);
                 }
+            });
+        });
+
+        // recupération des catégories produits
+        Restangular.all('categorie').getList().then(function(data){
+            angular.forEach(data,function(c,k){
+                if(c.type=="Produit"){
+                    $scope.categories.push(c);
+                }
+            });
+            $scope.categorie=$scope.categories[0].id;
+            // chargement des ventes
+            Restangular.all('vente_categorie/'+$scope.categorie+'/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                console.log(data);
+            },function(q){
+                console.log(q);
             });
         });
 
@@ -140,7 +162,9 @@ controller
         })
     }])
 
-    .controller("RapportsCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
+    .controller("RapportsCtrl",['$scope','Restangular','$filter','$cookies',function($scope,Restangular,$filter,$cookies){
+        var user=$cookies.getObject("user");
+
         $scope.ventes=[];
         $scope.ventes[0]={produits:[],besoins:[]};
         $scope.ventes[0].produits[0]={};
@@ -200,7 +224,7 @@ controller
                         var pro=$filter("filter")($scope.produits,{id: p.produit_id})[0];
                         somme+=(pro.prix* p.quantite);
                         p.date=date;
-                        p.user_id=2;
+                        p.user_id=user.id;
                         p.type="livre";
                         p.visite_id=data.id;
                         allVente.post(p).then(function(pdata){
@@ -213,7 +237,7 @@ controller
                     angular.forEach(v.besoins,function(p,pk){
                         if(p.produit_id!=undefined){
                             p.date=date;
-                            p.user_id=2;
+                            p.user_id=user.id;
                             p.type="besoins";
                             p.visite_id=data.id;
                             allVente.post(p).then(function(pdata){
@@ -255,7 +279,10 @@ controller
 
     .controller("ProduitCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
 
+        $scope.par_page=15;
+
         var allProduit=Restangular.all("produit");
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
 
         //var produit_cat=[];
 
@@ -306,6 +333,7 @@ controller
 
     .controller("CategorieCtrl",['$scope','Restangular',function($scope,Restangular){
 
+        $scope.par_page=15;
         var allCategorie=Restangular.all("categorie");
 
         //var produit_cat=[];
@@ -353,11 +381,11 @@ controller
             }
         };
 
-
     }])
     
     .controller("ProfilCtrl",['$scope','Restangular',function($scope,Restangular){
 
+        $scope.par_page=15;
         var allCategorie=Restangular.all("profil");
 
         Restangular.all("profil").getList().then(function(profil){
@@ -396,26 +424,16 @@ controller
         };
 
         $scope.enregistrer_profil=function(){
-            console.log($scope.profil);
-
-            if($scope.profil.utilisateur==undefined)
-                $scope.profil.utilisateur=false;
-            if($scope.profil.client==undefined )
-                $scope.profil.client=false;
-            if($scope.profil.categorie==undefined)
-                $scope.profil.categorie=false;
-            if($scope.profil.produit==undefined)
-                $scope.profil.produit=false;
-            if($scope.profil.rapport==undefined)
-                $scope.profil.rapport=false;
-            if($scope.profil.bilan_ville==undefined)
-                $scope.profil.bilan_ville=false;
-            if($scope.profil.bilan_national==undefined)
-                $scope.profil.bilan_national=false;
-            if($scope.profil.profil==undefined)
-                $scope.profil.profil=false;
-
             if($scope.profil.id!=undefined){
+                $scope.profil.profil=$scope.profil.profil==true?1:0;
+                $scope.profil.produit=$scope.profil.produit==true?1:0;
+                $scope.profil.utilisateur=$scope.profil.utilisateur==true?1:0;
+                $scope.profil.categorie=$scope.profil.categorie==true?1:0;
+                $scope.profil.rapport=$scope.profil.rapport==true?1:0;
+                $scope.profil.client=$scope.profil.client==true?1:0;
+                $scope.profil.bilan_ville=$scope.profil.bilan_ville==true?1:0;
+                $scope.profil.bilan_national=$scope.profil.bilan_national==true?1:0;
+
                 var fd = new FormData();
                 _.each($scope.profil, function (val, key) {
                     fd.append(key, val);
@@ -431,6 +449,23 @@ controller
             }
             else{
 
+                if($scope.profil.utilisateur==undefined)
+                    $scope.profil.utilisateur=false;
+                if($scope.profil.client==undefined )
+                    $scope.profil.client=false;
+                if($scope.profil.categorie==undefined)
+                    $scope.profil.categorie=false;
+                if($scope.profil.produit==undefined)
+                    $scope.profil.produit=false;
+                if($scope.profil.rapport==undefined)
+                    $scope.profil.rapport=false;
+                if($scope.profil.bilan_ville==undefined)
+                    $scope.profil.bilan_ville=false;
+                if($scope.profil.bilan_national==undefined)
+                    $scope.profil.bilan_national=false;
+                if($scope.profil.profil==undefined)
+                    $scope.profil.profil=false;
+
                 allCategorie.post($scope.profil).then(function(data){
                     $scope.profils.push(data);
                     $scope.profil={};
@@ -444,7 +479,7 @@ controller
     }])
     
     .controller("ClientCtrl",['$scope','Restangular','$filter',function($scope,Restangular,$filter){
-
+        $scope.par_page=15;
         $scope.client={};
         var allClient=Restangular.all("client");
         $scope.action="edit";
@@ -568,8 +603,30 @@ controller
 
     }])
 
-    .controller("LoginCtrl",['$scope',function($scope){
+    .controller("LoginCtrl",['$scope','$cookies','Restangular','$state',function($scope,$cookies,Restangular,$state){
+        $scope.message="";
+        $cookies.putObject("user",undefined,{path:"/"});
 
+        $scope.login=function(auth){
+            console.log(auth);
+            if(auth.email!=undefined && auth.password!=undefined){
+                Restangular.all("user").getList({email:auth.email,password:auth.password}).then(function(data){
+                    console.log(data);
+                    if(data.length==1){
+                        $cookies.putObject("user",data[0],{path:"/"});
+                        $state.go("home");
+                    }
+                    else{
+                       $scope.message="Utilisateur inexistant"
+                    }
+                },function(q){
+                    console.log(q);
+                })
+            }
+            else{
+                $scope.message="Champs non rempli";
+            }
+        }
     }]);
 
 function chart(target,date,donnees){

@@ -3,23 +3,23 @@
         <nav class="blog-nav pull-right">
             <a class="blog-nav-item active" ui-sref="home">Accueil</a>
             <a class="blog-nav-item" href="#">Ventes</a>
-            <a class="blog-nav-item" ui-sref="rapports">Rapports</a>
-            <a class="blog-nav-item" ui-sref="apropos">A propos</a>
+            <a class="blog-nav-item" ui-sref="rapports"  ng-if="user.profil.rapport==1">Rapports</a>
+            <!--<a class="blog-nav-item" ui-sref="apropos">A propos</a>-->
+            <ul class="nav navbar-nav pull-right" ng-if="user.admin">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ui-sref="clients" ng-if="user.profil.client==1">Clients</a></li>
+                        <li><a ui-sref="categories" ng-if="user.profil.categorie==1">Catégories</a></li>
+                        <li><a ui-sref="produits" ng-if="user.profil.produit==1">Produits</a></li>
+                        <li class="divider"></li>
+                        <li><a ui-sref="profils" ng-if="user.profil.profil==1">Profils</a></li>
+                        <li><a ui-sref="users" ng-if="user.profil.utilisateur==1">Utilisateurs</a></li>
+                    </ul>
+                </li>
+            </ul>
         </nav>
-        <ul class="nav navbar-nav pull-right">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a ui-sref="clients">Clients</a></li>
-                    <li><a ui-sref="categories">Catégories</a></li>
-                    <li><a ui-sref="produits">Produits</a></li>
-                    <li class="divider"></li>
-                    <li class="dropdown-header">Utilisateurs</li>
-                    <li><a ui-sref="profils">Profils</a></li>
-                    <li><a ui-sref="users">Utilisateurs</a></li>
-                </ul>
-            </li>
-        </ul>
+
     </div>
 </div>
 <div class="hidden-sm hidden-xs">

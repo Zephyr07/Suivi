@@ -41,7 +41,7 @@ a{
   color: #fff;
   max-width: 299px;
   padding: 10px 10px 29px;
-  margin: 70px auto 20px;
+  margin: 18% auto 20px;
   background-color: #0202024d;
   border: 1px solid $clr_second;
   -webkit-border-radius: 5px;
@@ -63,7 +63,7 @@ a{
   box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
 }
 
-.blog-nav-item {
+.blog-nav-item,.navbar-nav > li > a {
   position: relative;
   display: inline-block;
   padding: 10px;
@@ -73,15 +73,42 @@ a{
   :hover,:focus{
     color: #fff !important;
     text-decoration: none !important;
+    background: transparent;
   }
 }
 
-a.blog-nav-item:hover{
+a.blog-nav-item:hover,.navbar-nav > li > a:hover,.navbar-nav > li > a:focus{
   color: #fff;
   text-decoration: none;
+  background: transparent;
 }
 
-.blog-nav .active:after {
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover{
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+}
+
+.dropdown-menu{
+  background: #000;
+  border: 1px solid $clr_second;
+  color: #fff;
+
+  .divider{
+    background: $clr_second;
+  }
+
+  li {
+    &>a{
+      color: #fff;
+      &:hover{
+        background: $clr_second;
+      }
+    }
+  }
+}
+
+.blog-nav .active:after, {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -114,7 +141,15 @@ a.blog-nav-item:hover{
   }
 }
 
-
+.message{
+  color:#f00;
+}
+//
+//.navbar-nav > li > a{
+//  padding-top: 10px;
+//  padding-bottom: 10px;
+//  color:#000;
+//}
 
 form{
   label{

@@ -12,7 +12,10 @@
 
                 <div class="row">
                     <div class="col-lg-8 col-sm-8 col-md-8" style="margin-top: 20px">
-                        <h4>Liste des Profils</h4>
+                        <h4>Liste des profils
+                            <input type="text" style="width: 33%" placeholder="Recherche un profil"
+                                   ng-model="searchKey" class="form-control pull-right"/>
+                        </h4>
                         <div class="form-group">
                             <div class="row-fluid">
                                 <table class="table">
@@ -24,7 +27,7 @@
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="p in profils|orderBy:'-nom':true">
+                                    <tr dir-paginate="p in profils |filter:searchKey| orderBy:'-nom':true| itemsPerPage: par_page ">
                                         <td>
                                             {{p.nom}}
                                         </td>
@@ -80,7 +83,7 @@
                                     </li>
                                     <li>
                                         <label class='with-square-checkbox'>
-                                            <input ng-model="profil.produits" type='checkbox'>
+                                            <input ng-model="profil.produit" type='checkbox'>
                                             <span>Autoriser la gestion des Produits</span>
                                         </label>
                                     </li>

@@ -11,8 +11,11 @@
                 <div class="clear-fix"></div>
 
                 <div class="row">
-                    <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
-                        <h4>Liste des produits</h4>
+                    <div class="col-lg-8 col-sm-8" style="margin-top: 20px">
+                        <h4>Liste des produits
+                            <input type="text" style="width: 33%" placeholder="Recherche un produit"
+                                   ng-model="searchKey" class="form-control pull-right"/>
+                        </h4>
                         <div class="form-group">
                             <div class="row-fluid">
                                 <table class="table">
@@ -20,12 +23,12 @@
                                         <th>ID</th>
                                         <th>Libellé</th>
                                         <th>Prix</th>
-                                        <th>Quantité</th>
+                                        <th>Famille</th>
                                         <th>Catégorie</th>
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="p in produits">
+                                    <tr dir-paginate="p in produits |filter:searchKey| orderBy:'-libelle':true| itemsPerPage: par_page ">
                                         <td>
                                             {{p.id}}
                                         </td>
@@ -36,7 +39,7 @@
                                             {{p.prix}}
                                         </td>
                                         <td>
-                                            {{p.quantite_stock}}
+                                            {{p.famille}}
                                         </td>
                                         <td>
                                             {{p.categorie.intitule}}
@@ -48,10 +51,13 @@
                                     </tr>
                                     </tbody>
                                 </table>
+                                <div class="text-center">
+                                    <dir-pagination-controls></dir-pagination-controls>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <form class="col-lg-6 col-sm-6" style="margin-top: 20px">
+                    <form class="col-lg-4 col-sm-4" style="margin-top: 20px">
                         <h4>Ajoutr / Editer un produit</h4>
                         <div class="form-group">
                             <div class="row">
@@ -85,7 +91,7 @@
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
                                     <input type="number" ng-model="produit.quantite_stock" min="0"
-                                           placeholder="{{'Quantité e, stock'|translate}}" class="form-control"/>
+                                           placeholder="{{'Quantité en stock'|translate}}" class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -101,6 +107,23 @@
                                     >
                                         <option value="" disabled>
                                             <ff translate>Sélectionnez la catégorie</ff>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label translate>Famille </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <select ng-model="produit.famille" class="form-control"
+                                            ng-options="f.value as f.name for f in familles|orderBy:'-name':true"
+                                    >
+                                        <option value="" disabled>
+                                            <ff translate>Sélectionnez la famille</ff>
                                         </option>
                                     </select>
                                 </div>

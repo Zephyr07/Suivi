@@ -11,7 +11,10 @@
                 <div class="clear-fix"></div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
-                        <h4>Liste des clients</h4>
+                        <h4>Liste des utilisateurs
+                            <input type="text" style="width: 33%" placeholder="Recherche un utilisateur"
+                                   ng-model="searchKey" class="form-control pull-right"/>
+                        </h4>
                         <div class="form-group">
                             <div class="row-fluid">
                                 <table class="table table-responsive">
@@ -23,7 +26,7 @@
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="u in utilisateurs">
+                                    <tr dir-paginate="u in utilisateurs |filter:searchKey| orderBy:'-nom':true| itemsPerPage: par_page ">
                                         <td>
                                             {{u.nom}}
                                         </td>

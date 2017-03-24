@@ -40,7 +40,7 @@ a {
   color: #fff;
   max-width: 299px;
   padding: 10px 10px 29px;
-  margin: 70px auto 20px;
+  margin: 18% auto 20px;
   background-color: #0202024d;
   border: 1px solid #c0a261;
   -webkit-border-radius: 5px;
@@ -63,7 +63,7 @@ a {
 }
 
 /* line 66, ../sass/bvs.scss */
-.blog-nav-item {
+.blog-nav-item, .navbar-nav > li > a {
   position: relative;
   display: inline-block;
   padding: 10px;
@@ -71,18 +71,46 @@ a {
   color: #000;
 }
 /* line 73, ../sass/bvs.scss */
-.blog-nav-item :hover, .blog-nav-item :focus {
+.blog-nav-item :hover, .blog-nav-item :focus, .navbar-nav > li > a :hover, .navbar-nav > li > a :focus {
   color: #fff !important;
   text-decoration: none !important;
+  background: transparent;
 }
 
-/* line 79, ../sass/bvs.scss */
-a.blog-nav-item:hover {
+/* line 80, ../sass/bvs.scss */
+a.blog-nav-item:hover, .navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
   color: #fff;
   text-decoration: none;
+  background: transparent;
 }
 
-/* line 84, ../sass/bvs.scss */
+/* line 86, ../sass/bvs.scss */
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+}
+
+/* line 92, ../sass/bvs.scss */
+.dropdown-menu {
+  background: #000;
+  border: 1px solid #c0a261;
+  color: #fff;
+}
+/* line 97, ../sass/bvs.scss */
+.dropdown-menu .divider {
+  background: #c0a261;
+}
+/* line 102, ../sass/bvs.scss */
+.dropdown-menu li > a {
+  color: #fff;
+}
+/* line 104, ../sass/bvs.scss */
+.dropdown-menu li > a:hover {
+  background: #c0a261;
+}
+
+/* line 111, ../sass/bvs.scss */
 .blog-nav .active:after {
   position: absolute;
   bottom: 0;
@@ -97,7 +125,7 @@ a.blog-nav-item:hover {
   border-left: 5px solid transparent;
 }
 
-/* line 100, ../sass/bvs.scss */
+/* line 127, ../sass/bvs.scss */
 .btn-main.btn-reverse {
   color: #c0a261;
   background: #000;
@@ -105,31 +133,36 @@ a.blog-nav-item:hover {
   border-radius: 3px;
 }
 
-/* line 107, ../sass/bvs.scss */
+/* line 134, ../sass/bvs.scss */
 .btn-primary {
   background: #A18554;
   border-color: #c0a261;
 }
-/* line 111, ../sass/bvs.scss */
+/* line 138, ../sass/bvs.scss */
 .btn-primary:hover, .btn-primary:focus {
   background: #000 !important;
   border-color: #c0a261;
 }
 
-/* line 120, ../sass/bvs.scss */
+/* line 144, ../sass/bvs.scss */
+.message {
+  color: #f00;
+}
+
+/* line 155, ../sass/bvs.scss */
 form label {
   margin-bottom: 0 !important;
 }
-/* line 124, ../sass/bvs.scss */
+/* line 159, ../sass/bvs.scss */
 form .form-group {
   margin-bottom: 3px;
 }
-/* line 128, ../sass/bvs.scss */
+/* line 163, ../sass/bvs.scss */
 form .table {
   margin-bottom: 5px;
 }
 
-/* line 133, ../sass/bvs.scss */
+/* line 168, ../sass/bvs.scss */
 hr {
   margin-bottom: 10px;
   margin-top: 20px;
@@ -139,29 +172,29 @@ hr {
   border-color: #c0a261;
 }
 
-/* line 143, ../sass/bvs.scss */
+/* line 178, ../sass/bvs.scss */
 .logo img {
   position: fixed;
   top: -12px;
   width: 150px;
 }
 
-/* line 150, ../sass/bvs.scss */
+/* line 185, ../sass/bvs.scss */
 .slogan {
   font-family: "hanford","Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
   font-size: 25px;
 }
-/* line 154, ../sass/bvs.scss */
+/* line 189, ../sass/bvs.scss */
 .slogan:hover, .slogan:focus {
   color: black !important;
   cursor: default;
 }
-/* line 159, ../sass/bvs.scss */
+/* line 194, ../sass/bvs.scss */
 .slogan.blog-nav-item {
   padding: 0;
 }
 
-/* line 169, ../sass/bvs.scss */
+/* line 204, ../sass/bvs.scss */
 .form-control-feedback {
   margin-top: 6px;
   height: 23px;
@@ -169,26 +202,26 @@ hr {
   line-height: 24px;
   font-size: 15px;
 }
-/* line 176, ../sass/bvs.scss */
+/* line 211, ../sass/bvs.scss */
 .form-control-feedback.right {
   border-left: 1px solid #ccc;
   right: 13px;
 }
 
-/* line 183, ../sass/bvs.scss */
+/* line 218, ../sass/bvs.scss */
 span.right {
   float: right;
   font-size: 14px !important;
 }
 
-/* line 188, ../sass/bvs.scss */
+/* line 223, ../sass/bvs.scss */
 .control-label {
   text-align: center;
   margin-bottom: 0;
   padding-top: 7px;
 }
 
-/* line 195, ../sass/bvs.scss */
+/* line 230, ../sass/bvs.scss */
 .panel {
   background: black;
   border-color: #c0a261;
@@ -196,19 +229,19 @@ span.right {
   -moz-border-radius: 0;
   border-radius: 0;
 }
-/* line 204, ../sass/bvs.scss */
+/* line 239, ../sass/bvs.scss */
 .panel.panel-primary .panel-heading {
   background: #c0a261;
   border-color: #A18554;
 }
-/* line 210, ../sass/bvs.scss */
+/* line 245, ../sass/bvs.scss */
 .panel .panel-heading {
   padding: 0 15px;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
 }
-/* line 216, ../sass/bvs.scss */
+/* line 251, ../sass/bvs.scss */
 .panel .panel-heading h3 {
   margin: 0 5px;
   font-size: 14px;
@@ -218,63 +251,63 @@ span.right {
   padding: 5px 0px;
   height: inherit;
 }
-/* line 227, ../sass/bvs.scss */
+/* line 262, ../sass/bvs.scss */
 .panel .panel-body {
   padding: 7px 5px;
 }
-/* line 231, ../sass/bvs.scss */
+/* line 266, ../sass/bvs.scss */
 .panel .panel-body .col-xs-3, .panel .panel-body .col-sm-3, .panel .panel-body .col-md-3 {
   padding-right: 5px;
 }
-/* line 234, ../sass/bvs.scss */
+/* line 269, ../sass/bvs.scss */
 .panel .panel-body .col-xs-9, .panel .panel-body .col-sm-9, .panel .panel-body .col-md-9 {
   padding-left: 1px;
 }
-/* line 239, ../sass/bvs.scss */
+/* line 274, ../sass/bvs.scss */
 .panel .list-group {
   margin-bottom: 5px;
 }
-/* line 242, ../sass/bvs.scss */
+/* line 277, ../sass/bvs.scss */
 .panel .list-group li.list-group-item {
   border-radius: 0;
   font-weight: bold;
   border: none;
   background: transparent;
 }
-/* line 247, ../sass/bvs.scss */
+/* line 282, ../sass/bvs.scss */
 .panel .list-group li.list-group-item .badge {
   background: black;
   color: #fff;
 }
-/* line 251, ../sass/bvs.scss */
+/* line 286, ../sass/bvs.scss */
 .panel .list-group li.list-group-item:first-child {
   background: #A18554;
 }
-/* line 253, ../sass/bvs.scss */
+/* line 288, ../sass/bvs.scss */
 .panel .list-group li.list-group-item:first-child .badge {
   color: #fff;
 }
 
-/* line 262, ../sass/bvs.scss */
+/* line 297, ../sass/bvs.scss */
 a.link {
   color: #fff;
   text-decoration: underline;
 }
 
-/* line 268, ../sass/bvs.scss */
+/* line 303, ../sass/bvs.scss */
 label {
   cursor: pointer;
 }
 
-/* line 274, ../sass/bvs.scss */
+/* line 309, ../sass/bvs.scss */
 .profil label.with-square-checkbox {
   cursor: pointer;
 }
-/* line 276, ../sass/bvs.scss */
+/* line 311, ../sass/bvs.scss */
 .profil label.with-square-checkbox span {
   line-height: 24px;
 }
-/* line 278, ../sass/bvs.scss */
+/* line 313, ../sass/bvs.scss */
 .profil label.with-square-checkbox span::before {
   margin-right: 4px;
   padding-left: 1px;
@@ -286,22 +319,22 @@ label {
   content: '';
   float: left;
 }
-/* line 290, ../sass/bvs.scss */
+/* line 325, ../sass/bvs.scss */
 .profil label.with-square-checkbox input[type="checkbox"] {
   display: none;
 }
-/* line 292, ../sass/bvs.scss */
+/* line 327, ../sass/bvs.scss */
 .profil label.with-square-checkbox input[type="checkbox"]:checked + span::before {
   font-family: 'Glyphicons Halflings';
   content: '\e013';
   color: #c0a261;
 }
-/* line 300, ../sass/bvs.scss */
+/* line 335, ../sass/bvs.scss */
 .profil main {
   width: 300px;
   margin: 8px auto;
 }
-/* line 305, ../sass/bvs.scss */
+/* line 340, ../sass/bvs.scss */
 .profil li {
   list-style-type: none;
 }

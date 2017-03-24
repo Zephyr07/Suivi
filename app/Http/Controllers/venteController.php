@@ -69,22 +69,45 @@ class venteController extends Controller
 
     }
 
-    public function produit_plus_vendu_demande($type,$deb,$fin)
+    public function vente_produit_categorie($id,$deb,$fin)
     {
 
         $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
             ->groupBy("produit_id")
             ->whereBetween("date",[$deb,$fin])
-            ->where("type","=",$type)
-            ->orderBy("quantite","desc")
-            ->limit(3);
+            ->where("ventes.type","=","livre");
 
-        $users = $vente->join("produits",function($join){
+        $produits = $vente->join("produits",function($join){
             $join->on("produit_id","=","produits.id");
-        })->get();
+        })
+        ->where("categorie_id","=",$id);
 
-        return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+        $categories= $produits->join("categories",function($join){
+            $join->on("categorie_id","=","categories.id");
+        })
+        ->orderBy("libelle","asc")
+        ->get();
+
+
+        return Response::json($categories, 200, [], JSON_NUMERIC_CHECK);
     }
+
+    public function produit_plus_vendu_demande($type,$deb,$fin)
+        {
+
+            $vente=DB::table("ventes")->select("*",DB::raw("SUM(quantite) as quantite"))
+                ->groupBy("produit_id")
+                ->whereBetween("date",[$deb,$fin])
+                ->where("type","=",$type)
+                ->orderBy("quantite","desc")
+                ->limit(3);
+
+            $users = $vente->join("produits",function($join){
+                $join->on("produit_id","=","produits.id");
+            })->get();
+
+            return Response::json($users, 200, [], JSON_NUMERIC_CHECK);
+        }
 
     public function somme_vente($user_id,$deb,$fin,$type)
     {

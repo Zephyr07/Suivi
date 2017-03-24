@@ -1,3 +1,4 @@
+Meilleur vente par categorie
 
 Consommation par client carraouseul
 
@@ -79,7 +80,7 @@ bilan journée
                 <div class="panel-body">
                     <ul class="list-group prime">
                         <li ng-repeat="v in meilleur_vente" class="list-group-item">
-                            {{v.libelle}}
+                            {{v.libelle | limitTo:20}}
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
@@ -99,7 +100,7 @@ bilan journée
                 <div class="panel-body">
                     <ul class="list-group prime">
                         <li ng-repeat="v in meilleur_besoin" class="list-group-item">
-                            {{v.libelle}}
+                            {{v.libelle | limitTo:20}}
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
@@ -119,7 +120,7 @@ bilan journée
                 <div class="panel-body">
                     <ul class="list-group prime">
                         <li ng-repeat="c in meilleur_client" class="list-group-item">
-                            {{c.nom}}
+                            {{c.nom | limitTo:20}}
                             <span class="badge">{{c.somme}} Fcfa</span>
                         </li>
                     </ul>
@@ -162,13 +163,48 @@ bilan journée
                     <h3><i class="fa fa-line-chart"></i> Evolution des Ventes</h3>
                 </div>
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row-fluid">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label translate>Famille </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <select ng-model="famille" class="form-control"
+                                            ng-options="f.value as f.name for f in familles|orderBy:'-name':true"
+                                            >
+                                        <option value="" disabled>
+                                            <ff translate>Sélectionnez la famille</ff>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row-fluid">
+                                <div class="col-lg-5 col-sm-5 col-md-5">
+                                    <label translate>Catégorie </label>
+                                </div>
+                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                    <select ng-model="categorie" class="form-control"
+                                            ng-options="c.id as c.intitule for c in categories|orderBy:'-intitule':true"
+                                            >
+                                        <option value="" disabled>
+                                            <ff translate>Sélectionnez la catégorie</ff>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
                     <div id="area">
 
                     </div>
                 </div>
             </div>
 
-            <div class="panel panel-primary">
+            <div class="panel panel-primary hide">
                 <div class="panel-heading">
                     <h3><i class="fa fa-line-chart"></i> Evolution des Besoins</h3>
                 </div>

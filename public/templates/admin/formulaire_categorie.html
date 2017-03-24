@@ -5,14 +5,17 @@
             <div class="row" style="margin-top: 25px;">
                 <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
                     <h2 style="text-align: center"><span class="number main"></span>
-                        <ff translate>Produits</ff>
+                        <ff translate>Catégories</ff>
                     </h2>
                 </div>
                 <div class="clear-fix"></div>
 
                 <div class="row">
                     <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
-                        <h4>Liste des catégories</h4>
+                        <h4>Liste des catégories
+                            <input type="text" style="width: 33%" placeholder="Recherche une catégorie"
+                                   ng-model="searchKey" class="form-control pull-right"/>
+                        </h4>
                         <div class="form-group">
                             <div class="row-fluid">
                                 <table class="table">
@@ -23,7 +26,7 @@
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="c in categories|orderBy:'-intitule':true">
+                                    <tr dir-paginate="c in categories |filter:searchKey| orderBy:'-intitule':true| itemsPerPage: par_page ">
                                         <td>
                                             {{c.id}}
                                         </td>

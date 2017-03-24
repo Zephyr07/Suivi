@@ -43,6 +43,7 @@ class ProduitRequest extends FormRequest
                     'prix' => 'required|integer',
                     'quantite_stock' => 'integer',
                     'libelle' => 'required|max:255',
+                    'famille' => 'required|max:255',
                     'categorie_id' => 'integer|exists:categories,id'
                 ];
             }
@@ -57,6 +58,7 @@ class ProduitRequest extends FormRequest
                     'prix' => 'required|integer',
                     'quantite_stock' => 'integer',
                     'libelle' => 'required|max:255',
+                    'famille' => 'required|max:255',
                     'categorie_id' => 'required|integer|exists:categories,id'
 
                 ];
@@ -67,6 +69,7 @@ class ProduitRequest extends FormRequest
                     'prix' => 'integer',
                     'quantite_stock' => 'integer',
                     'libelle' => 'max:255',
+                    'famille' => 'max:255',
                     'categorie_id' => 'integer|exists:categories,id'
                 ];
             }

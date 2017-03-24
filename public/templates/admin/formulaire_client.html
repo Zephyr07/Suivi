@@ -10,21 +10,28 @@
                 </div>
                 <div class="clear-fix"></div>
                 <div class="row">
-                    <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
-                        <h4>Liste des clients</h4>
+                    <div class="col-lg-8 col-sm-8" style="margin-top: 20px">
+                        <h4>Liste des clients
+                            <input type="text" style="width: 33%" placeholder="Recherche un client"
+                                   ng-model="searchKey" class="form-control pull-right"/>
+                        </h4>
                         <div class="form-group">
                             <div class="row-fluid">
                                 <table class="table table-responsive">
                                     <thead>
                                         <th>Nom</th>
+                                        <th>Email</th>
                                         <th>Categorie</th>
                                         <th>Ville</th>
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="c in clients | orderBy:'-nom':true">
+                                    <tr dir-paginate="c in clients |filter:searchKey| orderBy:'-nom':true| itemsPerPage: par_page ">
                                         <td>
                                             {{c.nom}}
+                                        </td>
+                                        <td>
+                                            {{c.categorie.email}}
                                         </td>
                                         <td>
                                             {{c.categorie.intitule}}
@@ -43,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="col-lg-6 col-sm-6" ng-if="action=='edit'" style="margin-top: 20px">
+                    <form class="col-lg-4 col-sm-4" ng-if="action=='edit'" style="margin-top: 20px">
                         <h4>Ajoutr / Editer un client</h4>
                         <div class="form-group">
                             <div class="row">

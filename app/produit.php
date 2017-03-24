@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class produit extends Model
 {
     //
-    protected $fillable = ['id', 'libelle','prix','quantite_stock','categorie_id'];
+    protected $fillable = ['id', 'libelle','prix','quantite_stock','categorie_id','famille'];
     protected $dates = ['created_at', 'updated_at'];
 
     private $foreign = ['categorie'];

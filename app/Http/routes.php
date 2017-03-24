@@ -25,6 +25,7 @@ Route::resource('produit', 'produitController');
 Route::resource('visite', 'visiteController');
 //Route::resource('vente', 'venteController');
 
+
 Route::get('/vente', 'venteController@index');
 Route::post('/vente', 'venteController@store');
 Route::get('/vente/{vente}', 'venteController@show');
@@ -35,3 +36,4 @@ Route::get('/visite_best/{deb}/{fin}', 'visiteController@meilleur_client');
 Route::get('/visite/{deb}/{fin}', 'visiteController@visite');
 Route::get('/vente/{action}/{deb}/{fin}', 'venteController@produit_plus_vendu_demande');
 Route::get('/vente_user/{user_id}/{deb}/{fin}/{type}', 'venteController@somme_vente');
+Route::get('/vente_categorie/{id}/{deb}/{fin}', 'venteController@vente_produit_categorie');

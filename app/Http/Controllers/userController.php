@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\User;
 
+
 class userController extends Controller
 {
     //
