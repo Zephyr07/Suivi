@@ -65,6 +65,7 @@
 
 	<script src="js/app_js/undescrore.js"></script>
 	<script src='vendor/highcharts/highcharts.js'></script>
+	<!--script src='vendor/highcharts/highstock.js'></script-->
 	<script src='vendor/highcharts/modules/exporting.js'></script>
 	<script src="js/app_js/highchart-theme.js"></script>
 	<script src="js/app_js/exporting.js"></script>

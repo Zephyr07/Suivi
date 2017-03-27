@@ -99,7 +99,7 @@
                                 <table class="table table-condensed">
                                     <tbody>
                                     <tr ng-repeat="p in v.produits">
-                                        <td>
+                                        <td class="col-lg-6 col-sm-6 col-md-6">
                                             <select ng-model="p.produit_id" class="form-control"
                                                     ng-options="p.id as p.libelle for p in produits|orderBy:'-libelle':true"
                                                     >
@@ -108,11 +108,11 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td>
+                                        <td class="col-lg-3 col-sm-3 col-md-3">
                                             <input type="number" min="0" ng-model="p.quantite" 
                                                    placeholder="{{'Quantite'|translate}}" class="form-control"/>
                                         </td>
-                                        <td>
+                                        <td class="col-lg-3 col-sm-3 col-md-3">
                                             <span class="btn btn-primary" ng-click="ajouter_produit(v)"><i class="fa fa-plus"></i></span>
                                             <span class="btn btn-primary" ng-click="supprimer_produit(v,p)"><i class="fa fa-times"></i></span>
                                         </td>
@@ -128,7 +128,7 @@
                                 <table class="table table-condensed">
                                     <tbody>
                                     <tr ng-repeat="p in v.besoins">
-                                        <td>
+                                        <td class="col-lg-6 col-sm-6 col-md-6">
                                             <select ng-model="p.produit_id" class="form-control"
                                                     ng-options="p.id as p.libelle for p in produits|orderBy:'-libelle':true"
                                                     >
@@ -137,11 +137,11 @@
                                                 </option>
                                             </select>
                                         </td>
-                                        <td>
+                                        <td class="col-lg-3 col-sm-3 col-md-3">
                                             <input type="number" min="0" ng-model="p.quantite" 
                                                    placeholder="{{'Quantite'|translate}}" class="form-control"/>
                                         </td>
-                                        <td>
+                                        <td class="col-lg-3 col-sm-3 col-md-3">
                                             <span class="btn btn-primary" ng-click="ajouter_besoin(v)"><i class="fa fa-plus"></i></span>
                                             <span class="btn btn-primary" ng-click="supprimer_besoin(v,p)"><i class="fa fa-times"></i></span>
                                         </td>

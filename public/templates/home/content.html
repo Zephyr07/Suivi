@@ -51,7 +51,12 @@ bilan journée
                                           aria-hidden="true"></span>
                                 </label>
                                 <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <select name="" ng-model="vendeur" id="" class="form-control"
+                                    <select ng-if="user.profil.rapport==0 || user.profil.utilisateur==1" name="" ng-model="vendeur" id="" class="form-control"
+                                            ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
+                                            >
+                                        <option value="">Vendeur</option>
+                                    </select>
+                                    <select ng-if="user.profil.rapport==1 && user.profil.utilisateur==0" name="" ng-model="vendeur" disabled class="form-control"
                                             ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
                                             >
                                         <option value="">Vendeur</option>
@@ -164,7 +169,7 @@ bilan journée
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 hide">
                             <div class="row-fluid">
                                 <div class="col-lg-5 col-sm-5 col-md-5">
                                     <label translate>Famille </label>
@@ -180,19 +185,18 @@ bilan journée
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="row-fluid">
-                                <div class="col-lg-5 col-sm-5 col-md-5">
-                                    <label translate>Catégorie </label>
-                                </div>
-                                <div class="col-lg-7 col-sm-7 col-md-7">
+                                <div class="col-lg-6 col-sm-6 col-md-6">
                                     <select ng-model="categorie" class="form-control"
+                                            style="width: 75%;display: inline"
                                             ng-options="c.id as c.intitule for c in categories|orderBy:'-intitule':true"
                                             >
                                         <option value="" disabled>
                                             <ff translate>Sélectionnez la catégorie</ff>
                                         </option>
                                     </select>
+                                    <div class="btn btn-primary" ng-click="bilan()"><i class="fa fa-refresh"></i></div>
                                 </div>
                             </div>
                         </div>

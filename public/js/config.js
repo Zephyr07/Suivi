@@ -23,8 +23,7 @@ config
                     templateUrl: template_url + 'index.html'
                 },
                 'header@login': {
-                    templateUrl: template_url+'static/header-login.html',
-                    controller:"HeaderCtrl"
+                    templateUrl: template_url+'static/header-login.html'
                 },
                 'body@login': {
                     templateUrl: template_url+'auth/login.html',

@@ -17,11 +17,11 @@ class Client extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom')->unique();
-            $table->string('email')->unique();
-            $table->integer('telephone')->unique();
+            $table->string('email');
+            $table->integer('telephone');
             $table->string('adresse');
             $table->string('ville');
-            $table->integer('boite_postale')->unique();
+            $table->integer('boite_postale');
             $table->integer('categorie_id')->unsigned();
             $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
