@@ -97,27 +97,48 @@ controller
 
         $scope.filtrer=function(id,deb,fin){
             console.log(id,deb,fin);
-            var date=[];
-            var donnees=[];
+            $scope.meilleur_besoin=[];
+            $scope.meilleur_client=[];
+            $scope.meilleur_vente=[];
+            $scope.visite=[];
+            if(id==undefined){
+                user_id=0;
+            }
+            else{
+                user_id=id;
+            }
 
             // recupération des 3 meilleurs ventes
-            Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.quantite=cast_prix(""+v.quantite);
+                });
                 $scope.meilleur_vente=data;
             });
 
             // recupération des 3 meilleurs besoins
-            Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.quantite=cast_prix(""+v.quantite);
+                });
                 $scope.meilleur_besoin=data;
             });
 
             // recupération des 3 meilleurs clients
             Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.somme=cast_prix(""+v.somme);
+                });
                 $scope.meilleur_client=data;
             });
 
             // recupération des rapports de visites de la période
             Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.somme=cast_prix(""+v.somme);
+                });
                 $scope.visites=data;
+                console.log(data);
             });
 
             $scope.bilan();
@@ -126,34 +147,85 @@ controller
 
         // recupération des 3 meilleurs ventes
         Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            angular.forEach(data,function(v,k){
+                v.quantite=cast_prix(""+v.quantite);
+            });
             $scope.meilleur_vente=data;
         });
 
         // recupération des 3 meilleurs besoins
         Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            angular.forEach(data,function(v,k){
+                v.quantite=cast_prix(""+v.quantite);
+            });
             $scope.meilleur_besoin=data;
         });
 
         // recupération des 3 meilleurs clients
         Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            angular.forEach(data,function(v,k){
+                v.somme=cast_prix(""+v.somme);
+            });
             $scope.meilleur_client=data;
         });
 
         // recupération des rapports de visites de la période
         Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            angular.forEach(data,function(v,k){
+                v.somme=cast_prix(""+v.somme);
+            });
             $scope.visites=data;
+            console.log(data);
         });
 
     }])
 
-    .controller("DetailCtrl",['$scope','Restangular','$stateParams',function($scope,Restangular,$stateParams){
+    .controller("DetailCtrl",['$scope','Restangular','$stateParams','$cookies',function($scope,Restangular,$stateParams,$cookies){
         var id=$stateParams.id;
-
+        $scope.user=$cookies.getObject("user");
+        $scope.current=new Date();
         //recupération des détails d'une visite
         Restangular.one("visite",id).get().then(function(data){
+            data.client.telephone=cast_prix(""+data.client.telephone);
             $scope.visite=data;
             console.log(data);
-        })
+            $scope.visite.somme=cast_prix(""+$scope.visite.somme);
+            Restangular.one("categorie",data.client.categorie_id).get().then(function(data){
+                $scope.visite.client.categorie=data;
+            });
+            Restangular.all("vente").getList({visite_id:data.id}).then(function(data){
+                $scope.visite.ventes=data;
+                var ventes=[];
+                var besoins=[];
+                $scope.ventes=[];
+                $scope.besoins=[];
+                $scope.visite.user=data[0].user;
+                angular.forEach(data,function(v,k){
+                    if(v.type=='livre'){
+                        ventes.push({name:v.produit.libelle,y: v.quantite});
+                        $scope.ventes.push({name:v.produit.libelle,y: v.quantite});
+                    }
+                    else if(v.type=='besoins'){
+                        besoins.push({name:v.produit.libelle,y: v.quantite});
+                        $scope.besoins.push({name:v.produit.libelle,y: v.quantite});
+                    }
+                });
+
+                // creation graphe
+                graphe_rapport("ventes",ventes);
+                graphe_rapport("besoins",besoins);
+
+            },function(q){
+                console.log(q);
+            })
+        },function(q){
+            console.log(q);
+        });
+
+        $scope.pdf=function(){
+            generatePDF();
+        }
+
     }])
 
     .controller("RapportsCtrl",['$scope','Restangular','$filter','$cookies',function($scope,Restangular,$filter,$cookies){
@@ -215,22 +287,25 @@ controller
                     var somme=0;
                     allVisite.post(v).then(function(data){
                         angular.forEach(v.produits,function(p,pk){
-                            // recuperation du prix du produit
-                            var pro=$filter("filter")($scope.produits,{id: p.produit_id})[0];
-                            somme+=(pro.prix* p.quantite);
-                            p.date=date;
-                            p.user_id=user.id;
-                            p.type="livre";
-                            p.visite_id=data.id;
-                            allVente.post(p).then(function(pdata){
+                            if(p.quantite>0){
+                                // recuperation du prix du produit
+                                var pro=$filter("filter")($scope.produits,{id: p.produit_id})[0];
+                                somme+=(pro.prix* p.quantite);
+                                p.date=date;
+                                p.user_id=user.id;
+                                p.type="livre";
+                                p.visite_id=data.id;
+                                allVente.post(p).then(function(pdata){
 
-                            },function(pq){
-                                console.log(pq);
-                            });
+                                },function(pq){
+                                    console.log(pq);
+                                });
+                            }
+
                         });
 
                         angular.forEach(v.besoins,function(p,pk){
-                            if(p.produit_id!=undefined){
+                            if(p.produit_id!=undefined && p.quantite>0){
                                 p.date=date;
                                 p.user_id=user.id;
                                 p.type="besoins";
@@ -697,5 +772,59 @@ function bilan_vente_graphe(donnees,periode){
             }
         },
         series: donnees
+    });
+}
+
+function graphe_rapport(libelle,data){
+
+    console.log(data);
+    Highcharts.setOptions(Highcharts.theme);
+    // Build the chart
+    Highcharts.chart(libelle, {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Palmares des '+libelle
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+            }
+        },
+        series: [{
+            name: 'Quantité',
+            colorByPoint: true,
+            data:data
+        }]
+    });
+}
+
+function cast_prix(p){
+    var tab= p.split('');
+    tab=tab.reverse();
+    var i=0;
+    var prix="";
+    angular.forEach(tab,function(c,k){
+        prix=c+""+prix;
+        i++;
+        if(i%3==0 && tab.length>3){
+            prix=" "+prix;
+        }
+    });
+    return prix;
+}
+
+function generatePDF () {
+    kendo.drawing.drawDOM($("#rapport")).then(function(group) {
+        kendo.drawing.pdf.saveAs(group, "Converted PDF.pdf");
     });
 }

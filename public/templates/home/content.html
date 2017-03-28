@@ -50,13 +50,15 @@ bilan journée
                                           style="color: #fff; border: none;"
                                           aria-hidden="true"></span>
                                 </label>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <select ng-if="user.profil.rapport==0 || user.profil.utilisateur==1" name="" ng-model="vendeur" id="" class="form-control"
+                                <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==1 && user.profil.utilisateur==0">
+                                    <select name="" ng-model="vendeur" class="form-control"
                                             ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
                                             >
                                         <option value="">Vendeur</option>
                                     </select>
-                                    <select ng-if="user.profil.rapport==1 && user.profil.utilisateur==0" name="" ng-model="vendeur" disabled class="form-control"
+                                </div>
+                                <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==0 || user.profil.utilisateur==1">
+                                    <select name="" ng-model="vendeur" disabled class="form-control"
                                             ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
                                             >
                                         <option value="">Vendeur</option>
@@ -69,7 +71,7 @@ bilan journée
                            <div class="row-fluid" style="padding-top: 6px;padding-bottom: 6px;">
                                <div class="col-md-9 col-sm-9 col-xs-9 pull-right text-right">
                                    <button class="btn btn-primary" ng-click="filtrer(vendeur,deb,fin)">
-                                       <i class="fa fa-refresh"></i> Actualiser</button>
+                                       <i class="fa fa-refresh"></i> Actualiser </button>
                                </div>
                            </div>
                         </div>
@@ -149,7 +151,7 @@ bilan journée
                     <ul class="list-group">
                         <li ng-repeat="v in visites|orderBy:'updated_at':true|limitTo:10" class="list-group-item "
                             style="cursor: pointer"
-                            ui-sref="detail_rapport({id:v.id})">
+                            ui-sref="detail_rapport({id:v.id_visite})">
                             {{v.nom}}
                             <span class="badge">{{}}</span>
                         </li>

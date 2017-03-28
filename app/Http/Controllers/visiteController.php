@@ -66,7 +66,7 @@ class visiteController extends Controller
 
     public function visite($deb,$fin)
     {
-        $visite=DB::table("visites")
+        $visite=DB::table("visites")->select("*",DB::raw("visites.id as id_visite"))
             ->whereBetween("date",[$deb,$fin])
             ->join("clients",function($join){
                 $join->on("client_id","=","clients.id");

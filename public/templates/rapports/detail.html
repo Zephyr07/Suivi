@@ -2,6 +2,7 @@
 
     <div>
         <!--Premiere partie : description de l'événement-->
+
         <div class="row" style="margin-top: 25px;">
             <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
                 <h2 style="text-align: center"><span class="number main"></span>
@@ -11,14 +12,122 @@
             <div class="clear-fix"></div>
             <!--{{ventes}}-->
             <div class="row">
-                <div class="col-lg-12 col-sm-12 col-md-12">
-                    <table class="table table-condensed">
-
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <h4>Commerciale</h4>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{visite.user.nom}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{visite.user.email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{visite.user.ville}}</td>
+                            </tr>
+                        </tbody>
                     </table>
+
+                    <div class="row-fluid">
+                        <div id="besoins"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                    <div class="row">
+                        <h4>Informations sur le client</h4>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Nom</th>
+                                <td>{{visite.client.nom}}</td>
+                            </tr>
+                            <tr>
+                                <th>Téléphone</th>
+                                <td>{{visite.client.telephone}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>{{visite.client.email}}</td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{visite.client.adresse}}</td>
+                            </tr>
+                            <tr>
+                                <th>Boîte postale</th>
+                                <td>{{visite.client.boite_postale}}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{visite.client.ville}}</td>
+                            </tr>
+                            <tr>
+                                <th>Type de client</th>
+                                <td>{{visite.client.categorie.intitule}}</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row">
+                        <h4>Informations sur la visite</h4>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Personne rencontrée</th>
+                                    <td>{{visite.personne}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Raison de la visite</th>
+                                    <td>{{visite.raison}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Information sur le prospect</th>
+                                    <td>{{visite.prospect}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Opportunités</th>
+                                    <td>{{visite.opportunite}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Propositions</th>
+                                    <td>{{visite.proposition}}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date </th>
+                                    <td>{{visite.created_at}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <div class="row-fluid">
+                        <h4>Chiffre d'affaire</h4>
+                        <div class="ca">
+                            {{visite.somme}} FCFA
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div id="ventes"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row text-center">
+                <div class="btn btn-primary" ui-sref="impression({id:visite.id})">
+                    <i class="fa fa-print"></i> Générer le PDF
                 </div>
             </div>
 
         </div>
+
 
     </div>
 

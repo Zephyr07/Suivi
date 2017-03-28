@@ -69,6 +69,7 @@
 	<script src='vendor/highcharts/modules/exporting.js'></script>
 	<script src="js/app_js/highchart-theme.js"></script>
 	<script src="js/app_js/exporting.js"></script>
+	<script src="js/app_js/kendo.min.js"></script>
 
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular-sanitize.min.js'></script>

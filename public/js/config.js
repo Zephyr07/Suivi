@@ -87,6 +87,23 @@ config
                 }
             }
         })
+        .state('impression',{
+            url:"/impression/:id",
+            title:"Imprimer",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@impression': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@impression': {
+                    templateUrl: template_url+'rapports/impression.html',
+                    controller:"DetailCtrl"
+                }
+            }
+        })
 
         .state('produits',{
             url:"/produits",
