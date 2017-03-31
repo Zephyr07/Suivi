@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="rapport">
     <form style="margin-bottom: 20px">
         <div>
             <!--Premiere partie : description de l'événement-->
@@ -9,7 +9,7 @@
                     </h2>
                 </div>
                 <div class="clear-fix"></div>
-<!--{{ventes}}-->
+{{ventes}}
                 <div class="row" ng-repeat="v in ventes">
                     <div class="col-lg-6 col-sm-6" style="margin-top: 20px">
                         <div class="form-group">
@@ -20,13 +20,15 @@
                                         <span class="requis">*</span></label>
                                 </div>
                                 <div class="col-lg-7 col-sm-7 col-md-7">
-                                    <select ng-model="v.client_id" class="form-control"
-                                            ng-options="c.id as c.nom for c in clients|orderBy:'-nom':true"
-                                            >
-                                        <option value="" disabled>
-                                            <ff translate>Sélectionnez le client</ff>
-                                        </option>
-                                    </select>
+                                    <angucomplete id="e"
+                                                  placeholder="Sélectionner le client"
+                                                  pause="10"
+                                                  selectedobject="v.client_id"
+                                                  localdata="clients"
+                                                  searchfields="nom"
+                                                  titlefield="nom"
+                                                  minlength="1"
+                                                  inputclass="form-control form-control-small"></angucomplete>
                                 </div>
                             </div>
                         </div>
@@ -100,6 +102,17 @@
                                     <tbody>
                                     <tr ng-repeat="p in v.produits">
                                         <td class="col-lg-6 col-sm-6 col-md-6">
+                                            <angucomplete id="ex"
+                                                          placeholder="Sélectionner le produit"
+                                                          pause="10"
+                                                          selectedobject="p.produit_id"
+                                                          localdata="produits"
+                                                          searchfields="libelle"
+                                                          titlefield="libelle"
+                                                          minlength="1"
+                                                          inputclass="form-control form-control-small"></angucomplete>
+                                        </td>
+                                        <td class="col-lg-6 col-sm-6 col-md-6 hide">
                                             <select ng-model="p.produit_id" class="form-control"
                                                     ng-options="p.id as p.libelle for p in produits|orderBy:'-libelle':true"
                                                     >
@@ -129,6 +142,17 @@
                                     <tbody>
                                     <tr ng-repeat="p in v.besoins">
                                         <td class="col-lg-6 col-sm-6 col-md-6">
+                                            <angucomplete id="ex1"
+                                                          placeholder="Sélectionner le produit"
+                                                          pause="10"
+                                                          selectedobject="p.produit_id"
+                                                          localdata="produits"
+                                                          searchfields="libelle"
+                                                          titlefield="libelle"
+                                                          minlength="1"
+                                                          inputclass="form-control form-control-small"></angucomplete>
+                                        </td>
+                                        <td class="col-lg-6 col-sm-6 col-md-6 hide">
                                             <select ng-model="p.produit_id" class="form-control"
                                                     ng-options="p.id as p.libelle for p in produits|orderBy:'-libelle':true"
                                                     >

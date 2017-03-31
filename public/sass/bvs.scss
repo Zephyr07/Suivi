@@ -391,3 +391,51 @@ td{
     font-weight: normal;
   }
 }
+
+table tr td .btn{
+  padding: 2px 7px;
+}
+
+.pagination > li > a, .pagination > li > span {
+  background: $clr_second;
+  color: white;
+  border-color: $clr_primary;
+}
+
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover{
+  background: #000;
+  color: #fff;
+  border-color: $clr_second;
+}
+
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover{
+  background: $clr_second;
+  color: white;
+  border-color: $clr_primary;
+}
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover{
+  background: #000;
+  color: $clr_primary;
+  border-color: $clr_primary;
+}
+
+// date
+._720kb-datepicker-calendar-day._720kb-datepicker-today {
+  background:red;
+  color:white;
+}
+
+._720kb-datepicker-calendar-header:nth-child(2n+1) {
+  background: $clr_primary;
+}

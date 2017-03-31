@@ -46,6 +46,7 @@ class VisiteRequest extends FormRequest
                     'proposition' => 'max:255',
                     'somme'=>'integer',
                     'client_id' => 'required|integer|exists:clients,id',
+                    'user_id' => 'required|integer|exists:users,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];
             }
@@ -64,6 +65,7 @@ class VisiteRequest extends FormRequest
                     'proposition' => 'max:255',
                     'somme'=>'integer',
                     'client_id' => 'required|integer|exists:clients,id',
+                    'user_id' => 'required|integer|exists:users,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
 
                 ];
@@ -77,6 +79,7 @@ class VisiteRequest extends FormRequest
                     'opportunite' => 'max:255',
                     'proposition' => 'max:255',
                     'somme'=>'integer',
+                    'user_id' => 'required|integer|exists:users,id',
                     'client_id' => 'required|integer|exists:clients,id',
                     'date' => 'required|date|date_format:"Y-m-d"'
                 ];

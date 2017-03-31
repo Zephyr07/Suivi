@@ -396,3 +396,57 @@ td {
 #rapport td {
   font-weight: normal;
 }
+
+/* line 395, ../sass/bvs.scss */
+table tr td .btn {
+  padding: 2px 7px;
+}
+
+/* line 399, ../sass/bvs.scss */
+.pagination > li > a, .pagination > li > span {
+  background: #c0a261;
+  color: white;
+  border-color: #A18554;
+}
+
+/* line 405, ../sass/bvs.scss */
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover {
+  background: #000;
+  color: #fff;
+  border-color: #c0a261;
+}
+
+/* line 411, ../sass/bvs.scss */
+.pagination > .disabled > a,
+.pagination > .disabled > a:focus,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > span,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > span:hover {
+  background: #c0a261;
+  color: white;
+  border-color: #A18554;
+}
+
+/* line 422, ../sass/bvs.scss */
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background: #000;
+  color: #A18554;
+  border-color: #A18554;
+}
+
+/* line 434, ../sass/bvs.scss */
+._720kb-datepicker-calendar-day._720kb-datepicker-today {
+  background: red;
+  color: white;
+}
+
+/* line 439, ../sass/bvs.scss */
+._720kb-datepicker-calendar-header:nth-child(2n+1) {
+  background: #A18554;
+}

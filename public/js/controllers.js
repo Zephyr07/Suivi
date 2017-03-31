@@ -10,7 +10,7 @@ controller
         $scope.user=$cookies.getObject("user");
         if($scope.user!=undefined){
             var p=$scope.user.profil;
-            console.log($scope.user);
+            //console.log($scope.user);
             if(p.produit==1 && p.client==1 && p.categorie==1 && p.profil==1 && p.utilisateur==1){
                 $scope.user.admin=true;
             }
@@ -25,6 +25,7 @@ controller
         $scope.current=new Date();
         var j=new Date();
         var user_id=0;
+        $scope.categorie_id=0;
 
         $scope.user=$cookies.getObject("user");
         if($scope.user==undefined){
@@ -44,8 +45,9 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
-        $scope.fin=$scope.deb;
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+
 
         var donnees=[];
 
@@ -70,7 +72,6 @@ controller
             }
             // chargement des ventes
             Restangular.all('vente_categorie/'+$scope.categorie.id+'/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
-                console.log(data);
                 angular.forEach(data,function(v,l){
                     donnees.push({name: v.libelle,data:[v.quantite]});
                 });
@@ -81,14 +82,16 @@ controller
             });
         });
 
-        $scope.bilan=function(){
+        $scope.bilan=function(id){
             donnees=[];
-            if ($scope.categorie!=undefined){
-                Restangular.all('vente_categorie/'+$scope.categorie+'/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            console.log();
+            if (id!=undefined){
+                console.log('vente_categorie/'+id+'/'+$scope.deb+'/'+$scope.fin+'/'+user_id);
+                Restangular.all('vente_categorie/'+id+'/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
                     angular.forEach(data,function(v,l){
                         donnees.push({name: v.libelle,data:[v.quantite]});
                     });
-                    bilan_vente_graphe(donnees,$scope.deb+'-'+$scope.fin);
+                    bilan_vente_graphe(donnees,'Du '+$scope.deb+' au '+$scope.fin);
                 },function(q){
                     console.log(q);
                 });
@@ -109,7 +112,7 @@ controller
             }
 
             // recupération des 3 meilleurs ventes
-            Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            Restangular.all('vente/livre/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     v.quantite=cast_prix(""+v.quantite);
                 });
@@ -117,7 +120,7 @@ controller
             });
 
             // recupération des 3 meilleurs besoins
-            Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            Restangular.all('vente/besoins/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     v.quantite=cast_prix(""+v.quantite);
                 });
@@ -125,7 +128,7 @@ controller
             });
 
             // recupération des 3 meilleurs clients
-            Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            Restangular.all('visite_best/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     v.somme=cast_prix(""+v.somme);
                 });
@@ -133,19 +136,24 @@ controller
             });
 
             // recupération des rapports de visites de la période
-            Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+            Restangular.all('visite/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
+                $scope.visites=[];
+                $scope.somme=0;
                 angular.forEach(data,function(v,k){
+                    $scope.somme+= v.somme;
                     v.somme=cast_prix(""+v.somme);
                 });
+                $scope.somme=cast_prix(''+$scope.somme);
                 $scope.visites=data;
-                console.log(data);
+                console.log($scope.visites);
             });
 
-            $scope.bilan();
+            $scope.bilan($scope.categorie_id);
         };
 
 
         // recupération des 3 meilleurs ventes
+        console.log(user_id);
         Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
             angular.forEach(data,function(v,k){
                 v.quantite=cast_prix(""+v.quantite);
@@ -162,7 +170,7 @@ controller
         });
 
         // recupération des 3 meilleurs clients
-        Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+        Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
             angular.forEach(data,function(v,k){
                 v.somme=cast_prix(""+v.somme);
             });
@@ -170,13 +178,350 @@ controller
         });
 
         // recupération des rapports de visites de la période
-        Restangular.all('visite/'+$scope.deb+'/'+$scope.fin).getList().then(function(data){
+        Restangular.all('visite/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            $scope.visites=[];
+            $scope.somme=0;
+            angular.forEach(data,function(v,k){
+                $scope.somme+= v.somme;
+                v.somme=cast_prix(""+v.somme);
+            });
+            $scope.somme=cast_prix(''+$scope.somme);
+            $scope.visites=data;
+            console.log($scope.visites);
+        });
+
+    }])
+
+    .controller("ListeCtrl",['$scope','Restangular','$filter','$cookies','$state',function($scope,Restangular,$filter,$cookies,$state){
+        $scope.current=new Date();
+        var j=new Date();
+        var user_id=0;
+        $scope.par_page=15;
+
+        $scope.user=$cookies.getObject("user");
+        if($scope.user==undefined){
+            $state.go("login");
+        }
+
+        if($scope.user.profil.bilan_ville==1 || $scope.user.profil.bilan_national==1){
+            user_id=0;
+        }
+        else{
+            user_id=$scope.user.id;
+            $scope.vendeur=user_id;
+        }
+        $scope.ventes=[];
+        $scope.besoin=[];
+        $scope.vendeurs=[];
+        $scope.categories=[];
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
+        $scope.famille="Castel";
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+
+
+        var donnees=[];
+
+        // recupération des vendeurs
+        Restangular.all('user').getList().then(function(data){
+            angular.forEach(data,function(u,k){
+                if(u.profil.rapport==1 && u.profil.utilisateur==0){
+                    $scope.vendeurs.push(u);
+                }
+            });
+        });
+
+        $scope.filtrer=function(id,deb,fin){
+            console.log(id,deb,fin);
+            $scope.meilleur_besoin=[];
+            $scope.meilleur_client=[];
+            $scope.meilleur_vente=[];
+            $scope.visite=[];
+            if(id==undefined){
+                user_id=0;
+            }
+            else{
+                user_id=id;
+            }
+
+            // recupération des rapports de visites de la période
+            Restangular.all('visite/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+                $scope.visites=[];
+                $scope.somme=0;
+                angular.forEach(data,function(v,k){
+                    $scope.somme+= v.somme;
+                    v.somme=cast_prix(""+v.somme);
+                });
+                $scope.somme=cast_prix(''+$scope.somme);
+                $scope.visites=data;
+                console.log($scope.visites);
+            });
+        };
+
+
+        // recupération des rapports de visites de la période
+        Restangular.all('visite/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            $scope.visites=[];
+            $scope.somme=0;
+            angular.forEach(data,function(v,k){
+                $scope.somme+= v.somme;
+                v.somme=cast_prix(""+v.somme);
+            });
+            $scope.somme=cast_prix(''+$scope.somme);
+            $scope.visites=data;
+            console.log($scope.visites);
+        });
+
+    }])
+
+    .controller("ListeVenteCtrl",['$scope','Restangular','$filter','$cookies','$state',function($scope,Restangular,$filter,$cookies,$state){
+        $scope.current=new Date();
+        var j=new Date();
+        var user_id=0;
+        $scope.par_page=15;
+
+        $scope.user=$cookies.getObject("user");
+        if($scope.user==undefined){
+            $state.go("login");
+        }
+
+        if($scope.user.profil.bilan_ville==1 || $scope.user.profil.bilan_national==1){
+            user_id=0;
+        }
+        else{
+            user_id=$scope.user.id;
+            $scope.vendeur=user_id;
+        }
+        $scope.ventes=[];
+        $scope.besoin=[];
+        $scope.vendeurs=[];
+        $scope.categories=[];
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
+        $scope.famille="Castel";
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+
+        // recupération des vendeurs
+        Restangular.all('user').getList().then(function(data){
+            angular.forEach(data,function(u,k){
+                if(u.profil.rapport==1 && u.profil.utilisateur==0){
+                    $scope.vendeurs.push(u);
+                }
+            });
+        });
+
+        $scope.filtrer=function(id,deb,fin){
+            console.log(id,deb,fin);
+            $scope.meilleur_besoin=[];
+            $scope.meilleur_client=[];
+            $scope.meilleur_vente=[];
+            $scope.visite=[];
+            if(id==undefined){
+                user_id=0;
+            }
+            else{
+                user_id=id;
+            }
+
+
+            // recupération des 3 meilleurs ventes
+            Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.quantite=cast_prix(""+v.quantite);
+                });
+                $scope.ventes=data;
+            });
+        };
+
+        // recupération des 3 meilleurs ventes
+        Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            angular.forEach(data,function(v,k){
+                v.quantite=cast_prix(""+v.quantite);
+            });
+            $scope.ventes=data;
+        });
+
+        $scope.graph=function(produit_id,nom,type){
+            $scope.donnees=[];
+            Restangular.all('vente_graph/'+user_id+'/'+deb+'/'+fin+'/'+type+'/'+produit_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    var d= v.date.split("-");
+                    var x=new Date(d[0],d[1]-1,d[2]);
+                    $scope.donnees.push([x.getTime(), v.quantite]);
+                });
+                graphe_vente(nom,$scope.donnees);
+            });
+        };
+
+
+
+    }])
+
+    .controller("ListeBesoinCtrl",['$scope','Restangular','$filter','$cookies','$state',function($scope,Restangular,$filter,$cookies,$state){
+        $scope.current=new Date();
+        var j=new Date();
+        var user_id=0;
+        $scope.par_page=15;
+
+        $scope.user=$cookies.getObject("user");
+        if($scope.user==undefined){
+            $state.go("login");
+        }
+
+        if($scope.user.profil.bilan_ville==1 || $scope.user.profil.bilan_national==1){
+            user_id=0;
+        }
+        else{
+            user_id=$scope.user.id;
+            $scope.vendeur=user_id;
+        }
+        $scope.ventes=[];
+        $scope.besoin=[];
+        $scope.vendeurs=[];
+        $scope.categories=[];
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
+        $scope.famille="Castel";
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+
+        // recupération des vendeurs
+        Restangular.all('user').getList().then(function(data){
+            angular.forEach(data,function(u,k){
+                if(u.profil.rapport==1 && u.profil.utilisateur==0){
+                    $scope.vendeurs.push(u);
+                }
+            });
+        });
+
+        $scope.filtrer=function(id,deb,fin){
+            console.log(id,deb,fin);
+            $scope.meilleur_besoin=[];
+            $scope.meilleur_client=[];
+            $scope.meilleur_vente=[];
+            $scope.visite=[];
+            if(id==undefined){
+                user_id=0;
+            }
+            else{
+                user_id=id;
+            }
+
+
+            // recupération des 3 meilleurs besoins
+            Restangular.all('vente/besoins/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.quantite=cast_prix(""+v.quantite);
+                });
+                $scope.meilleur_besoin=data;
+            });
+        };
+
+        // recupération des 3 meilleurs besoins
+        Restangular.all('vente/besoins/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
+            console.log(data);
+            angular.forEach(data,function(v,k){
+                v.quantite=cast_prix(""+v.quantite);
+            });
+            $scope.meilleur_besoin=data;
+        });
+
+        $scope.graph=function(produit_id,nom,type){
+            $scope.donnees=[];
+            Restangular.all('vente_graph/'+user_id+'/'+$scope.deb+'/'+$scope.fin+'/'+type+'/'+produit_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    var d= v.date.split("-");
+                    var x=new Date(d[0],d[1]-1,d[2]);
+                    $scope.donnees.push([x.getTime(), v.quantite]);
+                });
+                graphe_vente(nom,$scope.donnees);
+            });
+        };
+
+
+
+    }])
+
+    .controller("ListeClientCtrl",['$scope','Restangular','$filter','$cookies','$state',function($scope,Restangular,$filter,$cookies,$state){
+        $scope.current=new Date();
+        var j=new Date();
+        var user_id=0;
+        $scope.par_page=15;
+
+        $scope.user=$cookies.getObject("user");
+        if($scope.user==undefined){
+            $state.go("login");
+        }
+
+        if($scope.user.profil.bilan_ville==1 || $scope.user.profil.bilan_national==1){
+            user_id=0;
+        }
+        else{
+            user_id=$scope.user.id;
+            $scope.vendeur=user_id;
+        }
+        $scope.ventes=[];
+        $scope.besoin=[];
+        $scope.vendeurs=[];
+        $scope.categories=[];
+        $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
+        $scope.famille="Castel";
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
+
+        // recupération des vendeurs
+        Restangular.all('user').getList().then(function(data){
+            angular.forEach(data,function(u,k){
+                if(u.profil.rapport==1 && u.profil.utilisateur==0){
+                    $scope.vendeurs.push(u);
+                }
+            });
+        });
+
+        $scope.filtrer=function(id,deb,fin){
+            console.log(id,deb,fin);
+            $scope.meilleur_besoin=[];
+            $scope.meilleur_client=[];
+            $scope.meilleur_vente=[];
+            $scope.visite=[];
+            if(id==undefined){
+                user_id=0;
+            }
+            else{
+                user_id=id;
+            }
+
+            // recupération des 3 meilleurs clients
+            Restangular.all('visite_best/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    v.somme=cast_prix(""+v.somme);
+                });
+                $scope.meilleur_client=data;
+            });
+        };
+
+        // recupération des 3 meilleurs clients
+        Restangular.all('visite_best/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
             angular.forEach(data,function(v,k){
                 v.somme=cast_prix(""+v.somme);
             });
-            $scope.visites=data;
-            console.log(data);
+            $scope.meilleur_client=data;
         });
+
+        $scope.graph=function(client_id,nom){
+            console.log(client_id,nom,'visite_graph/'+user_id+'/'+$scope.deb+'/'+$scope.fin+'/'+client_id);
+            $scope.donnees=[];
+            Restangular.all('visite_graph/'+user_id+'/'+$scope.deb+'/'+$scope.fin+'/'+client_id).getList().then(function(data){
+                angular.forEach(data,function(v,k){
+                    var d= v.date.split("-");
+                    var x=new Date(d[0],d[1]-1,d[2]);
+                    $scope.donnees.push([x.getTime(), v.somme]);
+                });
+                graphe_vente(nom,$scope.donnees);
+                console.log($scope.donnees);
+            });
+        };
+
+
 
     }])
 
@@ -283,11 +628,14 @@ controller
             var date=""+(new Date().getYear()+1900)+"-"+(new Date().getMonth()+1)+"-"+new Date().getDate();
             angular.forEach($scope.ventes,function(v,k){
                 if(v.client_id!=undefined){
+                    v.client_id= v.client_id.originalObject.id;
                     v.date=date;
+                    v.user_id=user.id;
                     var somme=0;
                     allVisite.post(v).then(function(data){
                         angular.forEach(v.produits,function(p,pk){
                             if(p.quantite>0){
+                                p.produit_id= p.produit_id.originalObject.id;
                                 // recuperation du prix du produit
                                 var pro=$filter("filter")($scope.produits,{id: p.produit_id})[0];
                                 somme+=(pro.prix* p.quantite);
@@ -296,19 +644,19 @@ controller
                                 p.type="livre";
                                 p.visite_id=data.id;
                                 allVente.post(p).then(function(pdata){
-
                                 },function(pq){
                                     console.log(pq);
                                 });
                             }
-
                         });
 
                         angular.forEach(v.besoins,function(p,pk){
                             if(p.produit_id!=undefined && p.quantite>0){
+                                console.log(p);
                                 p.date=date;
                                 p.user_id=user.id;
                                 p.type="besoins";
+                                p.produit_id= p.produit_id.originalObject.id;
                                 p.visite_id=data.id;
                                 allVente.post(p).then(function(pdata){
 
@@ -336,11 +684,11 @@ controller
                     },function(q){
                         console.log(q);
                     });
-                    $scope.ventes=[];
-                    $scope.ventes[0]={produits:[],besoins:[]};
-                    $scope.ventes[0].produits[0]={};
-                    $scope.ventes[0].produits[0].quantite=0;
-                    $scope.ventes[0].besoins[0]={quantite:0};
+                    //$scope.ventes=[];
+                    //$scope.ventes[0]={produits:[],besoins:[]};
+                    //$scope.ventes[0].produits[0]={};
+                    //$scope.ventes[0].produits[0].quantite=0;
+                    //$scope.ventes[0].besoins[0]={quantite:0};
                 }
                 else{
                     alert("Aucun client sélectionné");
@@ -621,6 +969,7 @@ controller
 
         $scope.villes=[{value:"Douala",name:"Douala"},{value:"Yaoundé",name:"Yaoundé"}];
 
+        $scope.per_page=15;
         $scope.utilisateur={};
         var allClient=Restangular.all("user");
         $scope.action="edit";
@@ -826,5 +1175,29 @@ function cast_prix(p){
 function generatePDF () {
     kendo.drawing.drawDOM($("#rapport")).then(function(group) {
         kendo.drawing.pdf.saveAs(group, "Converted PDF.pdf");
+    });
+}
+
+function graphe_vente(nom,donnees){
+
+    Highcharts.setOptions(Highcharts.theme);
+    Highcharts.stockChart('area', {
+
+
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: nom
+        },
+
+        series: [{
+            name: 'Quantité',
+            data: donnees,
+            tooltip: {
+                valueDecimals: 0
+            }
+        }]
     });
 }

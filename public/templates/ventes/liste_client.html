@@ -1,0 +1,68 @@
+<div class="container">
+
+    <div>
+        <!--Premiere partie : description de l'événement-->
+
+        <div class="row" style="margin-top: 25px;">
+            <div class="col-lg-12 col-sm-12 col-md-12 " style="border-bottom: 1px solid #c0a261; padding: 0">
+                <h2 style="text-align: center"><span class="number main"></span>
+                    <ff translate>Liste des clients</ff>
+                </h2>
+            </div>
+            <div class="clear-fix"></div>
+            <!--{{ventes}}-->
+            <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <h4>Filtre</h4>
+                    <div ui-view="detail"></div>
+
+                </div>
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                    <div class="row">
+                        <h4><input type="text" style="width: 43%" placeholder="Recherche"
+                                   ng-model="searchKey" class="form-control pull-right"/></h4>
+                        <table class="table">
+                            <thead>
+                                <th>Nom</th>
+                                <th>Somme</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr dir-paginate="p in meilleur_client |filter:searchKey| orderBy:'-nom':true| itemsPerPage: par_page ">
+                                    <td>{{p.nom}}</td>
+                                    <td>{{p.somme}}</td>
+                                    <td>
+                                        <span class="btn btn-primary" ng-click="graph(p.id,p.nom)"><i class="fa fa-bar-chart"></i></span>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <dir-pagination-controls></dir-pagination-controls>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-5 col-sm-6 col-md-5">
+                    <div class="row-fluid">
+                        <h4>Détails</h4>
+                        <div class="col-lg-12">
+
+                        </div>
+                        <div id="area">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+
+        </div>
+
+
+    </div>
+
+</div>

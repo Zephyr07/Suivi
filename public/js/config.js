@@ -36,15 +36,18 @@ config
             title:"Home",
             views:{
                 '':{
-                    templateUrl: template_url + 'index.html'
+                    templateUrl: template_url + 'index.html',
+                    controller:'HomeCtrl'
                 },
                 'header@home': {
                     templateUrl: template_url + 'static/header.html',
                     controller: "HeaderCtrl"
                 },
                 'body@home': {
-                    templateUrl: template_url+'home/content.html',
-                    controller:'HomeCtrl'
+                    templateUrl: template_url+'home/content.html'
+                },
+                'detail@home': {
+                    templateUrl: template_url+'partials/filtre.html'
                 },
                 'footer@home': {
                     templateUrl: template_url+'static/footer.html',
@@ -101,6 +104,87 @@ config
                 'body@impression': {
                     templateUrl: template_url+'rapports/impression.html',
                     controller:"DetailCtrl"
+                }
+            }
+        })
+
+        .state('liste',{
+            url:"/liste",
+            title:"Liste des rapport.",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@liste': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@liste': {
+                    templateUrl: template_url+'rapports/liste.html',
+                    controller:"ListeCtrl"
+                }
+            }
+        })
+
+        .state('liste_vente',{
+            url:"/liste_vente",
+            title:"Liste des rapport.",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@liste_vente': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'detail@liste_vente': {
+                    templateUrl: template_url + 'partials/filtre.html'
+                },
+                'body@liste_vente': {
+                    templateUrl: template_url+'ventes/liste_vente.html',
+                    controller:"ListeVenteCtrl"
+                }
+            }
+        })
+
+        .state('liste_besoin',{
+            url:"/liste_besoin",
+            title:"Liste des rapport.",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@liste_besoin': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'detail@liste_besoin': {
+                    templateUrl: template_url + 'partials/filtre.html'
+                },
+                'body@liste_besoin': {
+                    templateUrl: template_url+'ventes/liste_besoin.html',
+                    controller:"ListeBesoinCtrl"
+                }
+            }
+        })
+
+        .state('liste_client',{
+            url:"/liste_client",
+            title:"Liste des rapport.",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@liste_client': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'detail@liste_client': {
+                    templateUrl: template_url + 'partials/filtre.html'
+                },
+                'body@liste_client': {
+                    templateUrl: template_url+'ventes/liste_client.html',
+                    controller:"ListeClientCtrl"
                 }
             }
         })

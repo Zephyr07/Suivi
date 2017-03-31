@@ -39,9 +39,12 @@
 
 	<link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.min.css"></script>
 	<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css"></script>
+	<link rel="stylesheet" href="vendor/angularjs-datepicker/src/css/angular-datepicker.css"></script>
+
 	<!-- Style -->
 	<link rel="stylesheet" href="css/bvs.css">
 	<link rel="stylesheet" href="css/row-fluid.css">
+	<link rel="stylesheet" href="css/angucomplete.css">
 
 	<link rel='stylesheet' href='vendor/textAngular/dist/textAngular.css'>
 
@@ -64,12 +67,13 @@
 	<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 
 	<script src="js/app_js/undescrore.js"></script>
-	<script src='vendor/highcharts/highcharts.js'></script>
-	<!--script src='vendor/highcharts/highstock.js'></script-->
+	<!--script src='vendor/highcharts/highcharts.js'></script-->
+	<script src='vendor/highcharts/highstock.js'></script>
 	<script src='vendor/highcharts/modules/exporting.js'></script>
 	<script src="js/app_js/highchart-theme.js"></script>
 	<script src="js/app_js/exporting.js"></script>
 	<script src="js/app_js/kendo.min.js"></script>
+	<script src="js/app_js/angucomplete.js"></script>
 
 	<script src='vendor/textAngular/dist/textAngular-rangy.min.js'></script>
 	<script src='vendor/textAngular/dist/textAngular-sanitize.min.js'></script>
@@ -77,7 +81,7 @@
 	<script src='vendor/restangular/dist/restangular.min.js'></script>
 	<script src='vendor/satellizer/dist/satellizer.min.js'></script>
 
-
+	<script src='vendor/angularjs-datepicker/src/js/angular-datepicker.js'></script>
 
 	<script src='vendor/angular-gettext/dist/angular-gettext.min.js'></script>
 

@@ -1,8 +1,8 @@
-Meilleur vente par categorie
+<!--Meilleur vente par categorie-->
 
-Consommation par client carraouseul
+<!--Consommation par client carraouseul-->
 
-bilan journée
+<!--bilan journée-->
 
 <div class="container home">
     <!--Premiere partie : description de l'événement-->
@@ -23,59 +23,7 @@ bilan journée
                     <h3><i class="fa fa-filter"></i> Filtre</h3>
                 </div>
                 <div class="panel-body">
-                    <form>
-                        <div class="form-group">
-                            <div class="row-fluid">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <input class="form-control" ng-model="deb" type="text">
-                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="row-fluid">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">Date</label>
-                                <div class="col-md-9 col-sm-9 col-xs-9">
-                                    <input class="form-control" ng-model="fin" type="text">
-                                    <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="row-fluid">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-3">
-                                    <span class="fa fa-user form-control-feedback right"
-                                          style="color: #fff; border: none;"
-                                          aria-hidden="true"></span>
-                                </label>
-                                <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==1 && user.profil.utilisateur==0">
-                                    <select name="" ng-model="vendeur" class="form-control"
-                                            ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
-                                            >
-                                        <option value="">Vendeur</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==0 || user.profil.utilisateur==1">
-                                    <select name="" ng-model="vendeur" disabled class="form-control"
-                                            ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
-                                            >
-                                        <option value="">Vendeur</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                           <div class="row-fluid" style="padding-top: 6px;padding-bottom: 6px;">
-                               <div class="col-md-9 col-sm-9 col-xs-9 pull-right text-right">
-                                   <button class="btn btn-primary" ng-click="filtrer(vendeur,deb,fin)">
-                                       <i class="fa fa-refresh"></i> Actualiser </button>
-                               </div>
-                           </div>
-                        </div>
-                    </form>
+                    <div ui-view="detail"></div>
                 </div>
             </div>
         </div>
@@ -86,13 +34,13 @@ bilan journée
                 </div>
                 <div class="panel-body">
                     <ul class="list-group prime">
-                        <li ng-repeat="v in meilleur_vente" class="list-group-item">
+                        <li ng-repeat="v in meilleur_vente | limitTo:3" class="list-group-item">
                             {{v.libelle | limitTo:20}}
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
                     <div class=" text-center" ng-if="meilleur_vente.length>0">
-                        <a class="link" href="">
+                        <a class="link" ui-sref="liste_vente">
                             Voir plus
                         </a>
                     </div>
@@ -106,13 +54,13 @@ bilan journée
                 </div>
                 <div class="panel-body">
                     <ul class="list-group prime">
-                        <li ng-repeat="v in meilleur_besoin" class="list-group-item">
+                        <li ng-repeat="v in meilleur_besoin | limitTo:3" class="list-group-item">
                             {{v.libelle | limitTo:20}}
                             <span class="badge">{{v.quantite}}</span>
                         </li>
                     </ul>
                     <div class=" text-center" ng-if="meilleur_besoin.length>0">
-                        <a class="link" href="">
+                        <a class="link" ui-sref="liste_besoin">
                             Voir plus
                         </a>
                     </div>
@@ -126,13 +74,13 @@ bilan journée
                 </div>
                 <div class="panel-body">
                     <ul class="list-group prime">
-                        <li ng-repeat="c in meilleur_client" class="list-group-item">
+                        <li ng-repeat="c in meilleur_client | limitTo:3" class="list-group-item">
                             {{c.nom | limitTo:20}}
                             <span class="badge">{{c.somme}} Fcfa</span>
                         </li>
                     </ul>
                     <div class=" text-center" ng-if="meilleur_client.length>0">
-                        <a class="link" href="">
+                        <a class="link" ui-sref="liste_client">
                             Voir plus
                         </a>
                     </div>
@@ -157,7 +105,7 @@ bilan journée
                         </li>
                     </ul>
                     <div class=" text-center" ng-if="visites.length>0">
-                        <a class="link" href="">
+                        <a class="link" ui-sref="liste">
                             Voir plus
                         </a>
                     </div>
@@ -189,8 +137,8 @@ bilan journée
                         </div>
                         <div class="col-lg-12">
                             <div class="row-fluid">
-                                <div class="col-lg-6 col-sm-6 col-md-6">
-                                    <select ng-model="categorie" class="form-control"
+                                <form class="col-lg-6 col-sm-6 col-md-6">
+                                    <select ng-model="categorie_id" class="form-control"
                                             style="width: 75%;display: inline"
                                             ng-options="c.id as c.intitule for c in categories|orderBy:'-intitule':true"
                                             >
@@ -198,8 +146,8 @@ bilan journée
                                             <ff translate>Sélectionnez la catégorie</ff>
                                         </option>
                                     </select>
-                                    <div class="btn btn-primary" ng-click="bilan()"><i class="fa fa-refresh"></i></div>
-                                </div>
+                                    <div class="btn btn-primary" ng-click="bilan(categorie_id)"><i class="fa fa-refresh"></i></div>
+                                </form>
                             </div>
                         </div>
                     </div>

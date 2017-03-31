@@ -1,0 +1,65 @@
+<form>
+    <div class="form-group">
+        <div class="row-fluid">
+            <label class="control-label col-md-3 col-sm-3 col-xs-3">Du</label>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <datepicker date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                        <input class="form-control" ng-model="deb" placeholder="Sélectionner date"/>
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                            <i class="fa fa-calendar"></i>
+                                            </span>
+                    </div>
+                </datepicker>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row-fluid">
+            <label class="control-label col-md-3 col-sm-3 col-xs-3">Au</label>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <datepicker date-format="yyyy-MM-dd" selector="form-control">
+                    <div class="input-group">
+                        <input class="form-control" ng-model="fin" placeholder="Sélectionner date"/>
+                                            <span class="input-group-addon" style="cursor: pointer">
+                                            <i class="fa fa-calendar"></i>
+                                            </span>
+                    </div>
+                </datepicker>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row-fluid">
+            <label class="control-label col-md-3 col-sm-3 col-xs-3">
+                                    <span class="fa fa-user form-control-feedback right"
+                                          style="color: #fff; border: none;"
+                                          aria-hidden="true"></span>
+            </label>
+            <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==1 && user.profil.utilisateur==0">
+                <select name="" ng-model="vendeur" class="form-control"
+                        ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
+                        >
+                    <option value="">Vendeur</option>
+                </select>
+            </div>
+            <div class="col-md-9 col-sm-9 col-xs-9" ng-hide="user.profil.rapport==0 || user.profil.utilisateur==1">
+                <select name="" ng-model="vendeur" disabled class="form-control"
+                        ng-options="v.id as v.nom for v in vendeurs | orderBy:'-nom':true"
+                        >
+                    <option value="">Vendeur</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row-fluid" style="padding-top: 6px;padding-bottom: 6px;">
+            <div class="col-md-9 col-sm-9 col-xs-9 pull-right text-right">
+                <button class="btn btn-primary" ng-click="filtrer(vendeur,deb,fin)">
+                    <i class="fa fa-refresh"></i> Actualiser </button>
+            </div>
+        </div>
+    </div>
+</form>

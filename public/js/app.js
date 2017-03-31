@@ -11,6 +11,8 @@ angular.module('bvs', [
   'satellizer',
   'gettext',
   'ngCookies',
+  'angucomplete',
+  '720kb.datepicker',
   'restangular',
   'textAngular',
   'ngFileUpload',
