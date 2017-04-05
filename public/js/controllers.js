@@ -7,6 +7,7 @@ controller
         $scope.current=new Date();
     }])
     .controller("HeaderCtrl",['$scope','$cookies','$state',function($scope,$cookies,$state){
+        $scope.state=$state.current.name;
         $scope.user=$cookies.getObject("user");
         if($scope.user!=undefined){
             var p=$scope.user.profil;
@@ -312,6 +313,8 @@ controller
 
         $scope.filtrer=function(id,deb,fin){
             console.log(id,deb,fin);
+            $scope.vis=null;
+            $("#area").empty();
             $scope.meilleur_besoin=[];
             $scope.meilleur_client=[];
             $scope.meilleur_vente=[];
@@ -328,6 +331,9 @@ controller
             Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     v.quantite=cast_prix(""+v.quantite);
+                    Restangular.one("visite", v.visite_id).get().then(function(data){
+                        v.visite=data;
+                    });
                 });
                 $scope.ventes=data;
             });
@@ -337,13 +343,17 @@ controller
         Restangular.all('vente/livre/'+$scope.deb+'/'+$scope.fin+'/'+user_id).getList().then(function(data){
             angular.forEach(data,function(v,k){
                 v.quantite=cast_prix(""+v.quantite);
+                Restangular.one("visite", v.visite_id).get().then(function(data){
+                    v.visite=data;
+                });
             });
             $scope.ventes=data;
         });
 
-        $scope.graph=function(produit_id,nom,type){
+        $scope.graph=function(produit_id,nom,type,visite){
+            $scope.vis=visite;
             $scope.donnees=[];
-            Restangular.all('vente_graph/'+user_id+'/'+deb+'/'+fin+'/'+type+'/'+produit_id).getList().then(function(data){
+            Restangular.all('vente_graph/'+user_id+'/'+$scope.deb+'/'+$scope.fin+'/'+type+'/'+produit_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     var d= v.date.split("-");
                     var x=new Date(d[0],d[1]-1,d[2]);
@@ -395,6 +405,8 @@ controller
 
         $scope.filtrer=function(id,deb,fin){
             console.log(id,deb,fin);
+            $scope.vis=undefined;
+            $("#area").empty();
             $scope.meilleur_besoin=[];
             $scope.meilleur_client=[];
             $scope.meilleur_vente=[];
@@ -411,6 +423,9 @@ controller
             Restangular.all('vente/besoins/'+deb+'/'+fin+'/'+user_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
                     v.quantite=cast_prix(""+v.quantite);
+                    Restangular.one("visite", v.visite_id).get().then(function(data){
+                        v.visite=data;
+                    });
                 });
                 $scope.meilleur_besoin=data;
             });
@@ -421,11 +436,16 @@ controller
             console.log(data);
             angular.forEach(data,function(v,k){
                 v.quantite=cast_prix(""+v.quantite);
+                Restangular.one("visite", v.visite_id).get().then(function(data){
+                    v.visite=data;
+                });
             });
             $scope.meilleur_besoin=data;
         });
 
-        $scope.graph=function(produit_id,nom,type){
+        $scope.graph=function(produit_id,nom,type,visite){
+            console.log(visite);
+            $scope.vis=visite;
             $scope.donnees=[];
             Restangular.all('vente_graph/'+user_id+'/'+$scope.deb+'/'+$scope.fin+'/'+type+'/'+produit_id).getList().then(function(data){
                 angular.forEach(data,function(v,k){
@@ -683,18 +703,19 @@ controller
 
                     },function(q){
                         console.log(q);
+                        alert("Erreur");
                     });
-                    //$scope.ventes=[];
-                    //$scope.ventes[0]={produits:[],besoins:[]};
-                    //$scope.ventes[0].produits[0]={};
-                    //$scope.ventes[0].produits[0].quantite=0;
-                    //$scope.ventes[0].besoins[0]={quantite:0};
+                    $scope.ventes=[];
+                    $scope.ventes[0]={produits:[],besoins:[]};
+                    $scope.ventes[0].produits[0]={};
+                    $scope.ventes[0].produits[0].quantite=0;
+                    $scope.ventes[0].besoins[0]={quantite:0};
                 }
                 else{
                     alert("Aucun client sélectionné");
                 }
-
             });
+            alert("Rapports enregistré");
         };
 
 

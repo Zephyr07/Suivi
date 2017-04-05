@@ -1,11 +1,11 @@
 <div class="blog-masthead">
     <div class="container">
         <nav class="blog-nav pull-right">
-            <a class="blog-nav-item active" ui-sref="home">Accueil</a>
-            <a class="blog-nav-item" ui-sref="liste_vente">Ventes</a>
-            <a class="blog-nav-item" ui-sref="liste_besoin">Besoins clients</a>
-            <a class="blog-nav-item" ui-sref="liste_client">Meilleur client</a>
-            <a class="blog-nav-item" ui-sref="rapports"  ng-if="user.profil.rapport==1">Rapports</a>
+            <a ng-class="{'active': state=='home'}" class="blog-nav-item" ui-sref="home">Accueil</a>
+            <a ng-class="{'active': state=='liste_vente'}" class="blog-nav-item" ui-sref="liste_vente">+ Vendus</a>
+            <a ng-class="{'active': state=='liste_besoin'}" class="blog-nav-item" ui-sref="liste_besoin">+ Démandés</a>
+            <a ng-class="{'active': state=='liste_client'}" class="blog-nav-item" ui-sref="liste_client">Meilleurs clients</a>
+            <a ng-class="{'active': state=='rapports'}" class="blog-nav-item" ui-sref="rapports"  ng-if="user.profil.rapport==1">Rapports</a>
             <!--<a class="blog-nav-item" ui-sref="apropos">A propos</a>-->
             <ul class="nav navbar-nav pull-right" ng-if="user.admin">
                 <li class="dropdown">
@@ -20,7 +20,7 @@
                     </ul>
                 </li>
             </ul>
-            <a class="blog-nav-item" ui-sref="login">Déconnexion</a>
+            <a class="blog-nav-item" ui-sref="login">{{user.nom}}</a>
         </nav>
 
     </div>
@@ -28,7 +28,7 @@
 <div class="hidden-sm hidden-xs">
     <div class="container">
         <div class="navbar-header">
-            <a ui-sref="/" class="logo">
+            <a ui-sref="home" class="logo">
                 <img src="images/logo.png" alt=""/>
             </a>
         </div>
