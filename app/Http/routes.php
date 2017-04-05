@@ -23,6 +23,7 @@ Route::resource('categorie', 'categorieController');
 Route::resource('client', 'clientController');
 Route::resource('produit', 'produitController');
 Route::resource('visite', 'visiteController');
+Route::resource('suggestion', 'suggestionController');
 //Route::resource('vente', 'venteController');
 
 

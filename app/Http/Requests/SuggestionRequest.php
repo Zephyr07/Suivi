@@ -11,7 +11,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 
-class ProfilRequest extends FormRequest
+class SUggestionRequest extends FormRequest
 {
     public function wantsJson()
     {
@@ -40,7 +40,9 @@ class ProfilRequest extends FormRequest
             {
                 return [
                     'id' => 'required|integer',
-                    'nom' => 'required|max:255'
+                    'statut' => 'required|integer',
+                    'contenu' => 'required|max:255',
+                    'user_id' => 'integer|exists:users,id'
                 ];
             }
             case 'DELETE': {
@@ -51,32 +53,18 @@ class ProfilRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'nom' => 'required|max:255',
-                    'utilisateur' => 'required|max:1',
-                    'categorie' => 'required|max:1',
-                    'client' => 'required|max:1',
-                    'produit' => 'required|max:1',
-                    'profil' => 'required|max:1',
-                    'suggestion' => 'required|max:1',
-                    'rapport' => 'required|max:1',
-                    'bilan_national' => 'required|max:1',
-                    'bilan_ville' => 'required|max:1'
+                    'statut' => 'required|integer',
+                    'contenu' => 'required|max:255',
+                    'user_id' => 'required|integer|exists:users,id'
 
                 ];
             }
             case 'PUT':
             {
                 return [
-                    'nom' => 'max:255',
-                    'utilisateur' => 'max:1',
-                    'categorie' => 'max:1',
-                    'client' => 'max:1',
-                    'produit' => 'max:1',
-                    'profil' => 'max:1',
-                    'suggestion' => 'max:1',
-                    'bilan_ville' => 'max:1',
-                    'bilan_national' => 'max:1',
-                    'rapport' => 'max:1'
+                    'statut' => 'integer',
+                    'contenu' => 'max:255',
+                    'user_id' => 'integer|exists:users,id'
                 ];
             }
             case 'PATCH':
