@@ -16,12 +16,13 @@ class Profil extends Migration
             $table->increments('id');
             $table->string('nom')->unique();
             $table->integer('utilisateur'); // gestion des utilisateurs
-            $table->integer('categorie'); // gestion des catégories
+            $table->integer('categorie'); // gestion des catï¿½gories
             $table->integer('client'); // gestion des clients
             $table->integer('profil'); // gestion des profils
             $table->integer('produit'); // gestion des produits
+            $table->integer('suggestions'); // gestion des suggestions
             $table->integer('rapport'); // gestion des rapports de visite
-            $table->integer('bilan_ville'); // consulter bilan de tout le monde dans la même ville
+            $table->integer('bilan_ville'); // consulter bilan de tout le monde dans la mï¿½me ville
             $table->integer('bilan_national'); // consulter bilan de tout le monde peu importe la ville
             $table->timestamps();
         });

@@ -55,7 +55,7 @@
 	</head>
 	<body ng-app="bvs">
 
-	<div ui-view=""></div>
+	<div ui-view="" id="contain"></div>
 
 
 	<script src="vendor/angular/angular.js"></script>

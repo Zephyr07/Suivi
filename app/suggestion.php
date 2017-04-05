@@ -4,23 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class profil extends Model
+class suggestion extends Model
 {
     //
-    protected $fillable = ['id','nom' ,'categorie','utilisateur','client','profil','rapport','bilan_ville','bilan_national','produit','suggestion'];
+    protected $fillable = ['id', 'contenu','statut','user_id'];
     protected $dates = ['created_at', 'updated_at'];
-    private $foreign = [];
 
-    public function getForeign()
-    {
-        return $this->foreign;
-    }
-
+    private $foreign = ['user'];
     private $files = [];
 
     /**
      * @return array
      */
+    public function getForeign()
+    {
+        return $this->foreign;
+    }
 
 
     /**
@@ -32,6 +31,10 @@ class profil extends Model
     }
 
     public function getLabel(){
-        return $this->nom;
+        return $this->libelle;
+    }
+
+    public function user(){
+        return $this->belongsTo(user::class);
     }
 }

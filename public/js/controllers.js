@@ -6,14 +6,24 @@ controller
     .controller("AppCtrl",['$scope',function($scope){
         $scope.current=new Date();
     }])
-    .controller("HeaderCtrl",['$scope','$cookies','$state',function($scope,$cookies,$state){
+    .controller("HeaderCtrl",['$scope','$cookies','$state','Restangular',function($scope,$cookies,$state,Restangular){
         $scope.user=$cookies.getObject("user");
         if($scope.user!=undefined){
             var p=$scope.user.profil;
+            console.log(p);
             //console.log($scope.user);
             if(p.produit==1 && p.client==1 && p.categorie==1 && p.profil==1 && p.utilisateur==1){
                 $scope.user.admin=true;
             }
+        }
+
+        $scope.enregistrer_suggestion=function(){
+            Restangular.all("suggestion").post({contenu:$scope.suggestion,statut:0,user_id:$scope.user.id}).then(function(data){
+                $("#close").trigger('click');
+                alert("Merci pour votre aide à l'amélioration de cette application");
+            },function(q){
+                console.log(q);
+            });
         }
     }])
     
@@ -521,6 +531,27 @@ controller
             });
         };
 
+
+
+    }])
+
+    .controller("ListeSuggestionCtrl",['$scope','Restangular','$filter','$cookies','$state',function($scope,Restangular,$filter,$cookies,$state){
+
+        $scope.par_page=15;
+
+        $scope.user=$cookies.getObject("user");
+        if($scope.user==undefined){
+            $state.go("login");
+        }
+
+        // recupération des suggestions
+        Restangular.all('suggestion').getList().then(function(data){
+            $scope.suggestions=data;
+        });
+
+        $scope.editer_suggestion=function(s){
+            alert("Faire l'édition afec les fd et append");
+        }
 
 
     }])
@@ -1037,8 +1068,18 @@ controller
                 Restangular.all("user").getList({email:auth.email,password:auth.password}).then(function(data){
                     console.log(data);
                     if(data.length==1){
+                        var p=data[0].profil;
                         $cookies.putObject("user",data[0],{path:"/"});
-                        $state.go("home");
+                        if(p.rapport==1 && p.bilan_ville!=1){
+                            $state.go("rapports");
+                        }
+                        //else if(p.produit==1 && p.client==1 && p.categorie==1 && p.profil==1 && p.utilisateur==1){
+                        //    $state.go("")
+                        //}
+                        else{
+                            $state.go("home");
+                        }
+
                     }
                     else{
                        $scope.message="Utilisateur inexistant"

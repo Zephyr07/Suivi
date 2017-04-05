@@ -6,10 +6,11 @@
             <a class="blog-nav-item" ui-sref="liste_besoin">Besoins clients</a>
             <a class="blog-nav-item" ui-sref="liste_client">Meilleur client</a>
             <a class="blog-nav-item" ui-sref="rapports"  ng-if="user.profil.rapport==1">Rapports</a>
+            <a class="blog-nav-item" data-toggle="modal" data-target="#myModal" style="cursor:pointer;">Suggestions</a>
             <!--<a class="blog-nav-item" ui-sref="apropos">A propos</a>-->
             <ul class="nav navbar-nav pull-right" ng-if="user.admin">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;">Administration <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ui-sref="clients" ng-if="user.profil.client==1">Clients</a></li>
                         <li><a ui-sref="categories" ng-if="user.profil.categorie==1">Catégories</a></li>
@@ -17,10 +18,11 @@
                         <li class="divider"></li>
                         <li><a ui-sref="profils" ng-if="user.profil.profil==1">Profils</a></li>
                         <li><a ui-sref="users" ng-if="user.profil.utilisateur==1">Utilisateurs</a></li>
+                        <li><a ui-sref="liste_suggestion" ng-if="user.profil.suggestions==1">Suggestions</a></li>
                     </ul>
                 </li>
             </ul>
-            <a class="blog-nav-item" ui-sref="login">Déconnexion</a>
+            <a class="blog-nav-item" ui-sref="login"><i class="fa fa-sign-out fa-lg"></i></a>
         </nav>
 
     </div>
@@ -32,5 +34,27 @@
                 <img src="images/logo.png" alt=""/>
             </a>
         </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Suggestions</h4>
+            </div>
+            <div class="modal-body">
+                <div class="for-group">
+                    <textarea ng-model="suggestion" placeholder="Votre suggestion ici" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default hide" id="close" data-dismiss="modal"></button>
+                <button class="btn btn-main btn-reverse" ng-click="enregistrer_suggestion()">Envoyer votre suggestion</button>
+            </div>
+        </div>
+
     </div>
 </div>

@@ -439,3 +439,35 @@ table tr td .btn{
 ._720kb-datepicker-calendar-header:nth-child(2n+1) {
   background: $clr_primary;
 }
+
+#footer.stikybottom {
+  position: fixed;
+  bottom:0;
+  left: 0;
+  right:0;
+}
+
+.modal{
+  .modal-content{
+    background: rgba(10, 10, 11, 0.73);
+    border: 4px solid $clr_second;
+  }
+
+  .modal-header{
+    border-color: $clr_second;
+
+    h4{
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+    }
+  }
+
+  .modal-footer{
+    border-color: $clr_second;
+  }
+
+  textarea{
+    resize: vertical;
+  }
+}

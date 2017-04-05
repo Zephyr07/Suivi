@@ -450,3 +450,35 @@ table tr td .btn {
 ._720kb-datepicker-calendar-header:nth-child(2n+1) {
   background: #A18554;
 }
+
+/* line 443, ../sass/bvs.scss */
+#footer.stikybottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* line 451, ../sass/bvs.scss */
+.modal .modal-content {
+  background: rgba(10, 10, 11, 0.73);
+  border: 4px solid #c0a261;
+}
+/* line 456, ../sass/bvs.scss */
+.modal .modal-header {
+  border-color: #c0a261;
+}
+/* line 459, ../sass/bvs.scss */
+.modal .modal-header h4 {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+/* line 466, ../sass/bvs.scss */
+.modal .modal-footer {
+  border-color: #c0a261;
+}
+/* line 470, ../sass/bvs.scss */
+.modal textarea {
+  resize: vertical;
+}

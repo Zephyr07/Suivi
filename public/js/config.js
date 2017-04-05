@@ -28,7 +28,10 @@ config
                 'body@login': {
                     templateUrl: template_url+'auth/login.html',
                     controller:'LoginCtrl'
-                }
+                }//,
+                //'footer@login': {
+                //    templateUrl: template_url+'static/footer.html'
+                //}
             }
         })
         .state('home',{
@@ -48,11 +51,11 @@ config
                 },
                 'detail@home': {
                     templateUrl: template_url+'partials/filtre.html'
-                },
-                'footer@home': {
-                    templateUrl: template_url+'static/footer.html',
-                    controller:"FooterCtrl"
-                }
+                }//,
+                //'footer@home': {
+                //    templateUrl: template_url+'static/footer.html',
+                //    controller:"FooterCtrl"
+                //}
             }
         })
         .state('rapports',{
@@ -185,6 +188,24 @@ config
                 'body@liste_client': {
                     templateUrl: template_url+'ventes/liste_client.html',
                     controller:"ListeClientCtrl"
+                }
+            }
+        })
+
+        .state('liste_suggestion',{
+            url:"/suggestions",
+            title:"Liste des suggestions.",
+            views:{
+                '':{
+                    templateUrl: template_url + 'index.html'
+                },
+                'header@liste_suggestion': {
+                    templateUrl: template_url + 'static/header.html',
+                    controller: "HeaderCtrl"
+                },
+                'body@liste_suggestion': {
+                    templateUrl: template_url+'admin/liste_suggestion.html',
+                    controller:"ListeSuggestionCtrl"
                 }
             }
         })
