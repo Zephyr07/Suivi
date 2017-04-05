@@ -122,6 +122,9 @@ config
                     templateUrl: template_url + 'static/header.html',
                     controller: "HeaderCtrl"
                 },
+                'detail@liste': {
+                    templateUrl: template_url + 'partials/filtre.html'
+                },
                 'body@liste': {
                     templateUrl: template_url+'rapports/liste.html',
                     controller:"ListeCtrl"

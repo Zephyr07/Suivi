@@ -23,7 +23,6 @@
                                         <th>Nom du profil</th>
                                         <th>Permissions</th>
                                         <th>Date de creation</th>
-                                        <th>Date de moficiation</th>
                                         <th>Actions</th>
                                     </thead>
                                     <tbody>
@@ -32,13 +31,10 @@
                                             {{p.nom}}
                                         </td>
                                         <td>
-                                            <span ng-if="p.categorie==1">CA|</span><span ng-if="p.client==1">CL|</span><span ng-if="p.produit==1">PD|</span><span ng-if="p.profil==1">PL|</span><span ng-if="p.suggestion==1">SU|</span><span ng-if="p.utilisateur==1">US|</span><span ng-if="p.rapport==1">RA|</span><span ng-if="p.bilan_ville==1">BV|</span><span ng-if="p.bilan_national==1">BR</span>
+                                            <span ng-if="p.categorie==1">CA|</span><span ng-if="p.client==1">CL|</span><span ng-if="p.produit==1">PD|</span><span ng-if="p.profil==1">PL|</span><span ng-if="p.suggestions==1">SU|</span><span ng-if="p.utilisateur==1">US|</span><span ng-if="p.rapport==1">RA|</span><span ng-if="p.bilan_ville==1">BV|</span><span ng-if="p.bilan_national==1">BR</span>
                                         </td>
                                         <td>
                                             {{p.create}}
-                                        </td>
-                                        <td>
-                                            {{p.update}}
                                         </td>
                                         <td>
                                             <span class="btn btn-primary" ng-click="editer_profil(p)"><i class="fa fa-edit"></i></span>
@@ -104,7 +100,7 @@
                                     </li>
                                     <li>
                                         <label class='with-square-checkbox'>
-                                            <input ng-model="profil.suggestion" type='checkbox'>
+                                            <input ng-model="profil.suggestions" type='checkbox'>
                                             <span>Autoriser la gestion des Suggestions</span>
                                         </label>
                                     </li>

@@ -56,10 +56,9 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
-
-
+        
         var donnees=[];
 
         // recupération des vendeurs
@@ -227,7 +226,7 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
 
 
@@ -309,7 +308,7 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
 
         // recupération des vendeurs
@@ -401,7 +400,7 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
 
         // recupération des vendeurs
@@ -495,7 +494,7 @@ controller
         $scope.categories=[];
         $scope.familles=[{value:"Pernod Ricard",name:"Pernod Ricard"},{value:"Castel",name:"Castel"}];
         $scope.famille="Castel";
-        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-01';
+        $scope.deb= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
         $scope.fin= (j.getYear()+1900)+'-'+(j.getMonth()+1)+'-'+ j.getDate();
 
         // recupération des vendeurs
@@ -887,6 +886,8 @@ controller
                 $scope.profil.rapport=true;
             if($scope.profil.bilan_ville==1)
                 $scope.profil.bilan_ville=true;
+            if($scope.profil.suggestions==1)
+                $scope.profil.suggestions=true;
             if($scope.profil.bilan_national==1)
                 $scope.profil.bilan_national=true;
             if($scope.profil.profil==1)
@@ -905,6 +906,7 @@ controller
                 $scope.profil.utilisateur=$scope.profil.utilisateur==true?1:0;
                 $scope.profil.categorie=$scope.profil.categorie==true?1:0;
                 $scope.profil.rapport=$scope.profil.rapport==true?1:0;
+                $scope.profil.suggestions=$scope.profil.suggestions==true?1:0;
                 $scope.profil.client=$scope.profil.client==true?1:0;
                 $scope.profil.bilan_ville=$scope.profil.bilan_ville==true?1:0;
                 $scope.profil.bilan_national=$scope.profil.bilan_national==true?1:0;
@@ -932,6 +934,8 @@ controller
                     $scope.profil.categorie=false;
                 if($scope.profil.produit==undefined)
                     $scope.profil.produit=false;
+                if($scope.profil.suggestions==undefined)
+                    $scope.profil.suggestions=false;
                 if($scope.profil.rapport==undefined)
                     $scope.profil.rapport=false;
                 if($scope.profil.bilan_ville==undefined)
