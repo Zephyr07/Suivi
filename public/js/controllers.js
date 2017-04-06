@@ -564,14 +564,44 @@ controller
         }
 
         // recupération des suggestions
-        Restangular.all('suggestion').getList().then(function(data){
-            $scope.suggestions=data;
-        });
+        $scope.actualiser=function(){
+            Restangular.all('suggestion').getList().then(function(data){
+                $scope.suggestions=data;
+                $scope.traite_suggestions=$filter("filter")(data,{statut:1},true);
+                $scope.non_suggestions=$filter("filter")(data,{statut:0},true);
+            });
+        };
+
+        $scope.actualiser();
 
         $scope.editer_suggestion=function(s){
-            alert("Faire l'édition afec les fd et append");
-        }
+            var fd = new FormData();
+            s.statut=1;
+            _.each(s, function (val, key) {
+                fd.append(key, val);
+            });
+            fd.append("_method", "PUT");
+            Restangular.one('suggestion',s.id).withHttpConfig({transformRequest: angular.identity})
+                .customPOST(fd, '', undefined, {'Content-Type': undefined}).then(function(data){
+                    //$scope.supprimer_suggestion(s);
+                    console.log(data);
+                },function(q){
+                    console.log(q);
+                }
+            );
+        };
 
+        $scope.supprimer_suggestion=function(s){
+            console.log(s);
+            if(s.statut=0){
+                $scope.non_suggestions.splice($scope.non_suggestions.indexOf(s), 1);
+                $scope.traite_suggestions.push(s);
+            }
+            else if(s.statut=1){
+                $scope.traite_suggestions.splice($scope.traite_suggestions.indexOf(s), 1);
+                $scope.non_suggestions.push(s);
+            }
+        };
 
     }])
 
